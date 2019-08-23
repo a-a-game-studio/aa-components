@@ -2,7 +2,8 @@
   "name": "@a-a-game-studio/aa-components",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/src/index.js",
+  "types": "lib/src/index.d.ts",
   "scripts": {
     "release": "npm run build:dev && npm run build:prod",
     "build": "tsc",
@@ -15,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/a-a-game-studio/aa-components.git/issues"
   },
-  "author": "",
+  "author": "a-a-game-studio",
   "license": "BSD-3-Clause",
   "dependencies": {
     "@types/node": "^12.7.2",
