@@ -14,12 +14,9 @@ export class ModelValidatorSys {
 
 	/**
 	 * Система регистрации ошибок
-	 *
-	 * @var Sys\ErrorSys
 	 */
 	protected errorSys: ErrorSys;
 
-	protected db: any;
 
 	constructor(errorSys: ErrorSys) {
 		this.errorSys = errorSys;

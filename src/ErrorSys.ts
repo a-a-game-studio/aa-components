@@ -1,3 +1,5 @@
+import { BaseCoreI } from "./BaseCore/BaseCore";
+
 /**
  * Системный сервис обработки ошибок
  */
@@ -19,10 +21,10 @@ export class ErrorSys {
 
 	private errorCount: number = 0;
 
-	constructor() {
+	constructor(core:BaseCoreI) {
 
 		this.ok = true;
-		this.env = null;
+		this.env = core.env;
 		if (this.env == 'local' || this.env == 'dev') {
 			this.ifDevMode = true;
 		} else {
