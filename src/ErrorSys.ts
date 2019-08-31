@@ -1,4 +1,3 @@
-import { BaseCoreI } from "./BaseCore/BaseCore";
 
 /**
  * Системный сервис обработки ошибок
