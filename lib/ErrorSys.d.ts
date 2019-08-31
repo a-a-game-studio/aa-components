@@ -1,4 +1,3 @@
-import { BaseCoreI } from "./BaseCore/BaseCore";
 export declare class ErrorSys {
     errorClass: string;
     private ok;
@@ -12,7 +11,7 @@ export declare class ErrorSys {
     private noticeList;
     private devLogList;
     private errorCount;
-    constructor(core: BaseCoreI);
+    constructor(env?: string);
     clear(): void;
     isOk(): boolean;
     isDev(): boolean;
