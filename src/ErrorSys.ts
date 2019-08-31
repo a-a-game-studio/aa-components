@@ -21,10 +21,10 @@ export class ErrorSys {
 
 	private errorCount: number = 0;
 
-	constructor(core:BaseCoreI) {
+	constructor(env:string = 'prod') {
 
 		this.ok = true;
-		this.env = core.env;
+		this.env = env;
 		if (this.env == 'local' || this.env == 'dev') {
 			this.ifDevMode = true;
 		} else {

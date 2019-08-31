@@ -34,7 +34,7 @@ export function initBaseCore(conf:BaseConfI){
         }
     }
 
-    core.sys.errorSys = new ErrorSys(core);
+    core.sys.errorSys = new ErrorSys(conf.env);
 
     return core;
 }
