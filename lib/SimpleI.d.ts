@@ -1,5 +1,6 @@
 export interface KeyVal {
-    [s: string]: string;
+    [key: string]: any;
+    [key: number]: any;
 }
 export declare enum SortDirection {
     asc = "asc",

@@ -7,7 +7,6 @@ export declare class ModelValidatorSys {
     protected aResultType: any;
     protected aMsg: string[];
     protected errorSys: ErrorSys;
-    protected db: any;
     constructor(errorSys: ErrorSys);
     protected fValidString(sKey: string, sTpl: RegExp): boolean;
     protected fValidText(sKey: string): boolean;
