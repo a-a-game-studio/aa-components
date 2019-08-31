@@ -7,7 +7,7 @@ export interface BaseCoreI {
     conf:BaseConfI; //объект конфигурации
     apikey:string; // ключ доступа
     env:string; // Тип окружения (dev|prod)
-    system:{
+    sys:{
         errorSys:ErrorSys;
     }
 }
@@ -29,12 +29,12 @@ export function initBaseCore(conf:BaseConfI){
         conf: conf,
         apikey: '',
         env: conf.env,
-        system:{
+        sys:{
             errorSys: null,
         }
     }
 
-    core.system.errorSys = new ErrorSys(core);
+    core.sys.errorSys = new ErrorSys(core);
 
     return core;
 }
