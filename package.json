@@ -1,13 +1,13 @@
 {
   "name": "@a-a-game-studio/aa-components",
   "version": "1.0.2",
-  "description": "",
+  "description": "node typescript base class",
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
   "scripts": {
     "release": "npm run build:dev && npm run build:prod",
     "build": "tsc",
-    "test": "./node_modules/.bin/ts-mocha"
+    "test": "ts-mocha"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,6 @@
   },
   "directories": {
     "lib": "lib"
-  }
+  },
+  "homepage": "https://github.com/a-a-game-studio/aa-components#readme"
 }
