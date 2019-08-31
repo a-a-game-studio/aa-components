@@ -3,7 +3,7 @@ export interface BaseCoreI {
     conf: BaseConfI;
     apikey: string;
     env: string;
-    system: {
+    sys: {
         errorSys: ErrorSys;
     };
 }
