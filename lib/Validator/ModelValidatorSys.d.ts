@@ -83,6 +83,14 @@ export declare class ModelValidatorSys {
      */
     protected fValidMore(sKey: string, iVal: number): boolean;
     /**
+     * Проверяет на больше
+     *
+     * @param string sKey
+     * @param string sTpl
+     * @return boolean
+     */
+    protected fValidMoreOrEqual(sKey: string, iVal: number): boolean;
+    /**
      * Проверяет на меньше
      *
      * @param string sKey
@@ -90,6 +98,14 @@ export declare class ModelValidatorSys {
      * @return boolean
      */
     protected fValidLess(sKey: string, iVal: number): boolean;
+    /**
+     * Проверяет на меньше или равно
+     *
+     * @param string sKey
+     * @param string sTpl
+     * @return boolean
+     */
+    protected fValidLessOrEqual(sKey: string, iVal: number): boolean;
     /**
      * Проверяет на макс количесво символов
      *

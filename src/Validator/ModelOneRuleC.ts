@@ -130,6 +130,8 @@ export class ModelOneRuleC {
 		return this;
 	}
 
+	
+
     /**
      * Больше
      * @param iVal - Числовое сравнение [больше]
@@ -139,12 +141,30 @@ export class ModelOneRuleC {
 		return this;
 	}
 
+	/**
+     * Больше или равно
+     * @param iVal - Числовое сравнение [больше или равно]
+     */
+	public moreOrEq(iVal: number): ModelOneRuleC {
+		this.aRule['more_or_equal'] = iVal;
+		return this;
+	}
+
     /**
      * Меньше
      * @param iVal - Числовое сравнение [меньше]
      */
 	public less(iVal: number): ModelOneRuleC {
 		this.aRule['less'] = iVal;
+		return this;
+	}
+
+	/**
+     * Меньше или равно
+     * @param iVal - Числовое сравнение [меньше или равно]
+     */
+	public lessOrEq(iVal: number): ModelOneRuleC {
+		this.aRule['less_or_equal'] = iVal;
 		return this;
 	}
 
