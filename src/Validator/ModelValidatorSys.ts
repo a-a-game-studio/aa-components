@@ -289,7 +289,7 @@ export class ModelValidatorSys {
 		let bSuccess = false;
 		let i = Number(this.aResult[sKey])
 
-		if (i || 0) {
+		if (!isNaN(i)) {
 			if (i > iVal) { // Если значение больше - все хорошо
 				this.aResult[sKey] = i;
 				bSuccess = true;
@@ -311,7 +311,7 @@ export class ModelValidatorSys {
 		let bSuccess = false;
 		let i = Number(this.aResult[sKey])
 
-		if (i || 0) {
+		if (!isNaN(i)) {
 			if (i >= iVal) { // Если значение больше - все хорошо
 				this.aResult[sKey] = i;
 				bSuccess = true;
@@ -333,7 +333,7 @@ export class ModelValidatorSys {
 		let bSuccess = false;
 		let i = Number(this.aResult[sKey]);
 
-		if (i || 0) {
+		if (!isNaN(i)) {
 			if (i < iVal) { // Если значение меньше - все хорошо
 				this.aResult[sKey] = i;
 				bSuccess = true;
@@ -355,7 +355,7 @@ export class ModelValidatorSys {
 		let bSuccess = false;
 		let i = Number(this.aResult[sKey]);
 
-		if (i || 0) {
+		if ( !isNaN(i) ) {
 			if (i <= iVal) { // Если значение меньше - все хорошо
 				this.aResult[sKey] = i;
 				bSuccess = true;
