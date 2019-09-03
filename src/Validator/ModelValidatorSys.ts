@@ -465,6 +465,8 @@ export class ModelValidatorSys {
 		for (let k in aRules) {
 			let v = aRules[k];
 
+			this.abValidOK[k] = true;
+
 			//Подстановка значений по умолчанию, если значения нет
 			if (this.okResult && v['def'] && !this.data[k]) {
 				this.data[k] = v['def'];
@@ -506,6 +508,7 @@ export class ModelValidatorSys {
 
 				if ( !this.checkExist(this.data[k]) ) {
 					this.okResult = false;
+					this.abValidOK[k] = false;
 					this.errorSys.error('valid_' + k + '_require', k + ' - поле обязательно для заполнения');
 				}
 			}
@@ -514,10 +517,9 @@ export class ModelValidatorSys {
 			if (bExist && bDpend && v['type'] == 'str') {
 				this.errorSys.decl('valid_' + k + '_str', 'errorValidate');
 
-				if (this.fValidString(k, v['if'])) {
-					this.abValidOK[k] = true;
-				} else {
+				if ( !this.fValidString(k, v['if']) ) {
 					this.okResult = false;
+					this.abValidOK[k] = false;
 					this.errorSys.error('valid_' + k + '_str', v['error'] + ' Ошибка string = ' + this.data[k]);
 				}
 			}
@@ -526,10 +528,9 @@ export class ModelValidatorSys {
 			if (bExist && bDpend && v['type'] == 'boolean') {
 				this.errorSys.decl('valid_' + k + '_bool', 'errorValidate');
 
-				if (this.fValidBool(k)) {
-					this.abValidOK[k] = true;
-				} else {
+				if ( !this.fValidBool(k) ) {
 					this.okResult = false;
+					this.abValidOK[k] = false;
 					this.errorSys.error('valid_' + k + '_bool', v['error'] + ' Ошибка boolean = ' + this.data[k]);
 				}
 			}
@@ -538,9 +539,8 @@ export class ModelValidatorSys {
 			if (bExist && bDpend && v['type'] == 'date') {
 				this.errorSys.decl('valid_' + k + '_date', 'errorValidate');
 
-				if (this.fValidDate(k)) {
-					this.abValidOK[k] = true;
-				} else {
+				if( !this.fValidDate(k) ) {
+					this.abValidOK[k] = false;
 					this.okResult = false;
 					this.errorSys.error('valid_' + k + '_date', v['error'] + ' Ошибка date = ' + this.data[k]);
 				}
@@ -550,9 +550,8 @@ export class ModelValidatorSys {
 			if (bExist && bDpend && v['type'] == 'int') {
 				this.errorSys.decl('valid_' + k + '_int', 'errorValidate');
 
-				if (this.fValidInt(k)) {
-					this.abValidOK[k] = true;
-				} else {
+				if ( !this.fValidInt(k) ) {
+					this.abValidOK[k] = false;
 					this.okResult = false;
 					this.errorSys.error('valid_' + k + '_int', v['error'] + ' Ошибка int = ' + this.data[k]);
 				}
@@ -562,9 +561,8 @@ export class ModelValidatorSys {
 			if (bExist && bDpend && v['type'] == 'enum') {
 				this.errorSys.decl('valid_' + k + '_enum', 'errorValidate');
 
-				if (this.fValidEnum(k, v['if'])) {
-					this.abValidOK[k] = true;
-				} else {
+				if ( !this.fValidEnum(k, v['if']) ) {
+					this.abValidOK[k] = false;
 					this.okResult = false;
 					this.errorSys.error('valid_' + k + '_enum', v['error'] + ' Ошибка enum = ' + this.data[k]);
 				}
@@ -574,9 +572,8 @@ export class ModelValidatorSys {
 			if (bExist && bDpend && v['type'] == 'text') {
 				this.errorSys.decl('valid_' + k + '_text', 'errorValidate');
 
-				if (this.fValidText(k)) {
-					this.abValidOK[k] = true;
-				} else {
+				if ( !this.fValidText(k) ) {
+					this.abValidOK[k] = false;
 					this.okResult = false;
 					this.errorSys.error('valid_' + k + '_text', v['error'] + ' Ошибка text = ' + this.data[k]);
 				}
@@ -586,9 +583,8 @@ export class ModelValidatorSys {
 			if (bExist && bDpend && v['type'] == 'json') {
 				this.errorSys.decl('valid_' + k + '_json', 'errorValidate');
 
-				if (this.fValidJson(k)) {
-					this.abValidOK[k] = true;
-				} else {
+				if ( !this.fValidJson(k) ) {
+					this.abValidOK[k] = false;
 					this.okResult = false;
 					this.errorSys.error('valid_' + k + '_json', v['error'] + ' Ошибка json = ' + this.data[k]);
 				}
@@ -598,10 +594,9 @@ export class ModelValidatorSys {
 			if (bExist && bDpend && v['type'] == 'decimal') {
 				this.errorSys.decl('valid_' + k + '_decimal', 'errorValidate');
 
-				if (this.fValidDecimal(k)) {
-					this.abValidOK[k] = true;
-				} else {
+				if ( !this.fValidDecimal(k) ) {
 					this.okResult = false;
+					this.abValidOK[k] = false;
 					this.errorSys.error('valid_' + k + '_decimal', v['error'] + ' Ошибка decimal = ' + this.data[k]);
 				}
 			}
@@ -615,9 +610,8 @@ export class ModelValidatorSys {
 				this.errorSys.decl('valid_' + k + '_more', 'errorValidate');
 
 				if (v['type'] == 'int' || v['type'] == 'decimal') {
-					if (this.fValidMore(k, v['more'])) {
-						this.abValidOK[k] = true;
-					} else {
+					if ( !this.fValidMore(k, v['more']) ) {
+						this.abValidOK[k] = false;
 						this.okResult = false;
 						this.errorSys.error('valid_' + k + '_more', v['error'] + ' Число слишком маленькое = ' + this.data[k]);
 					}
@@ -631,9 +625,8 @@ export class ModelValidatorSys {
 				this.errorSys.decl('valid_' + k + '_more_or_equal', 'errorValidate');
 
 				if (v['type'] == 'int' || v['type'] == 'decimal') {
-					if (this.fValidMoreOrEqual(k, v['more_or_equal'])) {
-						this.abValidOK[k] = true;
-					} else {
+					if( !this.fValidMoreOrEqual(k, v['more_or_equal']) ){
+						this.abValidOK[k] = false;
 						this.okResult = false;
 						this.errorSys.error('valid_' + k + '_more_or_equal', v['error'] + ' Число слишком маленькое = ' + this.data[k]);
 					}
@@ -648,9 +641,8 @@ export class ModelValidatorSys {
 
 				if (v['type'] == 'int' || v['type'] == 'decimal') {
 
-					if (this.fValidLess(k, v['less'])) {
-						this.abValidOK[k] = true;
-					} else {
+					if ( !this.fValidLess(k, v['less']) ) {
+						this.abValidOK[k] = false;
 						this.okResult = false;
 						this.errorSys.error('valid_' + k + '_less', v['error'] + ' Число слишком большое = ' + this.data[k]);
 					}
@@ -665,9 +657,8 @@ export class ModelValidatorSys {
 
 				if (v['type'] == 'int' || v['type'] == 'decimal') {
 
-					if (this.fValidLessOrEqual(k, v['less_or_equal'])) {
-						this.abValidOK[k] = true;
-					} else {
+					if ( !this.fValidLessOrEqual(k, v['less_or_equal']) ){
+						this.abValidOK[k] = false;
 						this.okResult = false;
 						this.errorSys.error('valid_' + k + '_less_or_equal', v['error'] + ' Число слишком большое = ' + this.data[k]);
 					}
@@ -683,9 +674,8 @@ export class ModelValidatorSys {
 
 				// Проверка является ли поле текстовым
 				if (v['type'] == 'text' || v['type'] == 'str') {
-					if (this.fValidMaxLen(k, v['max_len'])) {
-						this.abValidOK[k] = true;
-					} else {
+					if ( !this.fValidMaxLen(k, v['max_len']) ){
+						this.abValidOK[k] = false;
 						this.okResult = false;
 						this.errorSys.error('valid_' + k + '_max_len', v['error'] + ' Превышено количество символов = ' + this.data[k]);
 					}
@@ -701,9 +691,8 @@ export class ModelValidatorSys {
 
 				// Проверка является ли поле текстовым
 				if (v['type'] == 'text' || v['type'] == 'str') {
-					if (this.fValidMinLen(k, v['min_len'])) {
-						this.abValidOK[k] = true;
-					} else {
+					if ( !this.fValidMinLen(k, v['min_len']) ){
+						this.abValidOK[k] = false;
 						this.okResult = false;
 						this.errorSys.error('valid_' + k + '_min_len', v['error'] + ' Малое количество символов = ' + this.data[k]);
 					}
