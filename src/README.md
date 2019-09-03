@@ -1,7 +1,7 @@
 ## Install
 npm i --save @a-a-game-studio/aa-components
 
-Publish
+## Publish
 npm init --scope=a-a-game-studio
 
 ## Patch version

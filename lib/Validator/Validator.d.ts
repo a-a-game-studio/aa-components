@@ -1,4 +1,7 @@
 import { ModelOneRuleC } from "./ModelOneRuleC";
+/**
+ * Конструктор правил валидации
+ */
 export declare class Validator {
     private aRules;
     constructor();
