@@ -426,6 +426,13 @@ export class ModelValidatorSys {
 				this.data[k] = v['def'];
 			}
 
+			if( 'error_key' in v ){ // Если указываем ключ ошибки декларируем ее
+				let errorKey:any = {};
+				errorKey[v['error_key']['key']] = v['error_key']['msg'];
+
+				this.errorSys.declareEx(errorKey);
+			}
+
 			//Проверка существования данных
 			let bExist = this.checkExist(this.data[k]);
 
@@ -453,7 +460,7 @@ export class ModelValidatorSys {
 			if (v['require']) {
 				this.errorSys.decl('valid_' + k + '_require', 'errorValidate');
 
-				if (!this.data[k]) {
+				if ( !this.checkExist(this.data[k]) ) {
 					this.okResult = false;
 					this.errorSys.error('valid_' + k + '_require', k + ' - поле обязательно для заполнения');
 				}
@@ -626,6 +633,11 @@ export class ModelValidatorSys {
 				} else {
 					this.errorSys.error('valid_' + k + '_min_len_no_string', 'Поле не является строкой');
 				}
+			}
+
+			// Кастомная ошибка на поле [error_key]
+			if( !this.abValidOK[k] && 'error_key' in v ){ // Вызываем кастомную ошибку, если она произошла и была указана
+				this.errorSys.error(v['error_key']['key'], v['error_key']['msg']);
 			}
 
 
