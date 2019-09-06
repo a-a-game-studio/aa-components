@@ -161,10 +161,6 @@ export declare class ErrorSys {
     };
     /**
      * Получить все логи для разработки
-     *
-     * @return array|null - возвращаются уведомления (key, val)
      */
-    getDevLog(): {
-        [s: string]: string;
-    };
+    getDevLog(): string[];
 }
