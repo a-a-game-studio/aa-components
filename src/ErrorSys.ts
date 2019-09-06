@@ -15,7 +15,7 @@ export class ErrorSys {
 	private warningList: { [s: string]: string }; // Пердупреждения пользователю
 	private devNoticeList: { [s: string]: string }; // Уведомления для разработки и тестирования
 	private noticeList: { [s: string]: string }; // Уведомления для пользователя
-	private devLogList: { [s: string]: string }; // Массив для логирования тестовой информации
+	private devLogList: string[]; // Массив для логирования тестовой информации
 
 
 	private errorCount: number = 0;
@@ -35,7 +35,7 @@ export class ErrorSys {
 		this.warningList = {};
 		this.devNoticeList = {};
 		this.noticeList = {};
-		this.devLogList = {};
+		this.devLogList = [];
 
 	}
 
@@ -49,7 +49,7 @@ export class ErrorSys {
 		this.warningList = {};
 		this.devNoticeList = {};
 		this.noticeList = {};
-		this.devLogList = {};
+		this.devLogList = [];
 		this.errorCount = 0;
 
 	}
@@ -155,16 +155,20 @@ export class ErrorSys {
 	 * @param kError // Ключ ошибки - для тестирования
 	 * @param sError // Сообщение об ошибке
 	 */
-	public errorEx(e: any, kError: string, sError: string): void {
+	public errorEx(e:any, kError:string, sError:string ): void{
 		this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
 		this.errorList[kError] = sError;
 
+		if( this.ifDevMode ){
+			this.devLogList.push('E:['+kError+'] - '+sError);
+			console.log('E:['+kError+'] - '+sError);
+			console.log('Ошибка - ' + e.name , e.message, e.stack);
 
-		// Проверка на декларацию ошибок
-		if (!(kError in this.errorDeclareList)) {
-			this.devWarning(kError, 'Отсутствует декларация ошибки');
+			// Проверка на декларацию ошибок
+			if( !(kError in this.errorDeclareList) ){
+				this.devWarning(kError, 'Отсутствует декларация ошибки');
+			}
 		}
-
 	}
 
 	/**
@@ -188,7 +192,7 @@ export class ErrorSys {
 	public devNotice(kNotice: string, sNotice: string): void {
 		if (this.ifDevMode) {
 			this.devNoticeList[kNotice] = sNotice;
-			//this.devLogList.push('N:[' + kNotice + '] - ' + sNotice);
+			this.devLogList.push('N:[' + kNotice + '] - ' + sNotice);
 			console.log('N:[' + kNotice + '] - ' + sNotice);
 		}
 	}
@@ -215,7 +219,7 @@ export class ErrorSys {
 	public devWarning(kWarning: string, sWarning: string): void {
 		if (this.ifDevMode) {
 			this.devWarningList[kWarning] = sWarning;
-			//this.devLogList.push('W:[' + kWarning + '] - ' + sWarning);
+			this.devLogList.push('W:[' + kWarning + '] - ' + sWarning);
 			console.log('W:[' + kWarning + '] - ' + sWarning);
 		}
 	}
@@ -291,10 +295,8 @@ export class ErrorSys {
 
 	/**
 	 * Получить все логи для разработки
-	 *
-	 * @return array|null - возвращаются уведомления (key, val)
 	 */
-	public getDevLog(): { [s: string]: string } {
+	public getDevLog(): string[] {
 		return this.devLogList;
 	}
 
