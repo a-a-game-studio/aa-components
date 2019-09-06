@@ -148,6 +148,23 @@ export class ErrorSys {
 	}
 
 	/**
+	 * Сокращенный вариант
+	 * Добавляет ошибку в стек (используя в качестве сообщения значение из декларации)
+	 *
+	 * @param string kError - ключ ошибки
+	 * @return void
+	 */
+	public err( kError:string ): void{
+		if( this.errorDeclareList[kError] ){
+			this.error(kError, this.errorDeclareList[kError]);
+		} else {
+			this.error(kError, 'Неизвестная ошибка');
+			this.devWarning(kError, 'Отсутствует декларация ошибки');
+		}
+
+	}
+
+	/**
 	 * Добавляет ошибку в стек,
 	 * В dev режиме выводит catch(e) ошибки в консоль
 	 *
