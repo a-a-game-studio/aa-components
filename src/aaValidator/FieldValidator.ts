@@ -4,7 +4,7 @@ import { ErrorSys } from "../ErrorSys";
  * Валидатор поля
  */
 export class FieldValidator {
-    
+
     protected errorSys: ErrorSys;
 
     protected bOk: boolean = true;
@@ -59,6 +59,7 @@ export class FieldValidator {
 
             if (s) {
                 bSuccess = true;
+                this.data = s;
             }
 
             /* if string is empty */
@@ -90,13 +91,12 @@ export class FieldValidator {
             const i = Number(this.data);
 
             if (!isNaN(i)) {
-
                 if (i == 0 || i == 1) {
                     bSuccess = true;
+                    this.data = Boolean(i);
                 } else {
                     bSuccess = false;
                 }
-
             }
 
             if (!bSuccess) {
@@ -239,8 +239,7 @@ export class FieldValidator {
 	/**
 	 * Проверяет на больше
 	 *
-	 * @param string sTpl
-	 * @return boolean
+	 * @param iVal: number
 	 */
     protected fMore(iVal: number): FieldValidator {
 
@@ -270,9 +269,7 @@ export class FieldValidator {
 	/**
 	 * Проверяет на больше
 	 *
-	 * @param string sKey
-	 * @param string sTpl
-	 * @return boolean
+	 * @param iVal: number
 	 */
     protected fMoreOrEqual(iVal: number): FieldValidator {
 
@@ -301,8 +298,7 @@ export class FieldValidator {
 	/**
 	 * Проверяет на меньше
 	 *
-	 * @param string sTpl
-	 * @return boolean
+	 * @param iVal: number
 	 */
     protected fLess(iVal: number): FieldValidator {
 
@@ -331,7 +327,7 @@ export class FieldValidator {
 	/**
 	 * Проверяет на меньше или равно
 	 *
-	 * @param string number
+	 * @param iVal: number
 	 */
     protected fLessOrEqual(iVal: number): FieldValidator {
 
