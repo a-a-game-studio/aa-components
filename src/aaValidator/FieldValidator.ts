@@ -10,6 +10,7 @@ export class FieldValidator {
     protected bOk: boolean = true;
     protected data: any;
     protected sErr: string;
+    
 
     constructor(errorSys: ErrorSys, data: any) {
         this.errorSys = errorSys;
