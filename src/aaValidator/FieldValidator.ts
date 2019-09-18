@@ -89,7 +89,7 @@ export class FieldValidator {
         return this;
     }
 
-    
+
     /**
     * Валидирует булевую переменную
     * @error isNotBool
@@ -97,7 +97,7 @@ export class FieldValidator {
     * @param string sTpl
     * @return boolean
     */
-   public fBool(): FieldValidator {
+    public fBool(): FieldValidator {
 
         let bSuccess = false;
         try {
@@ -383,11 +383,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('MoreThanMaxLen' + iLen);
+                this.fErr('MoreThanMaxLen');
             }
 
         } catch (e) {
-            this.fErr('MoreThanMaxLen' + iLen);
+            this.fErr('MoreThanMaxLen');
         }
 
         return this;
@@ -411,15 +411,33 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('LessThanMinLen' + iLen);
+                this.fErr('LessThanMinLen');
             }
 
         } catch (e) {
-            this.fErr('LessThanMinLen' + iLen);
+            this.fErr('LessThanMinLen');
         }
 
         return this;
 
+    }
+
+    public fEqual(Val: any): FieldValidator {
+
+        let bSuccess = false;
+
+        try {
+            bSuccess = (Val == this.data);
+
+            if (!bSuccess) {
+                this.fErr('isNotEqual');
+            }
+
+        } catch (e) {
+            this.fErr('isNotEqual');
+        }
+
+        return this;
     }
 
 }
