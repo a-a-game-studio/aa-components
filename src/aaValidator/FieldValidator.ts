@@ -11,7 +11,7 @@ export class FieldValidator {
     protected data: any;
     protected sErr: string;
 
-    protected iCounter: number = 0;
+    protected iCounter: number = 0; // внутренний счетчик ошибок
 
 
     constructor(errorSys: ErrorSys, data: any) {
@@ -27,17 +27,40 @@ export class FieldValidator {
         this.iCounter++;
     }
 
+    /**
+     * Список ошибок
+     */
     public fGetErrorSys(): ErrorSys {
         return this.errorSys;
     }
 
+    /**
+     * признак отсутвия ошибок
+     */
     public fIsOk(): boolean {
         return this.bOk;
     }
 
     /**
+     * Установить валидируемые данные
+     * @param data 
+     */
+    public fSetData(data: any): FieldValidator {
+        this.data = data;
+        return this;
+    }
+
+    /**
+     * Сбросить внутренний счетчик ошибок
+     */
+    public fResetCounter(): FieldValidator {
+        this.iCounter = 0;
+        return this;
+    }
+
+    /**
      * строка примечание к ошибке
-     * @param e 
+     * @param sErr: string 
      */
     public fSetErrorString(sErr: string): FieldValidator {
         this.sErr = sErr;
@@ -48,9 +71,9 @@ export class FieldValidator {
      * Существование значения
      * @error isNotExist
      */
-    public fExist(): FieldValidator {
+    public fExist(sError: string = 'isNotExist'): FieldValidator {
         if (!this.data) {
-            this.fErr('isNotExist');
+            this.fErr(sError);
         }
         return this;
     }
@@ -61,7 +84,7 @@ export class FieldValidator {
 	 * @param string sKey
 	 * @return boolean
 	 */
-    public fText(): FieldValidator {
+    public fText(sError: string = 'isNotText'): FieldValidator {
 
         let bSuccess = false;
 
@@ -80,10 +103,10 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isNotText');
+                this.fErr(sError);
             }
         } catch (e) {
-            this.fErr('isNotText');
+            this.fErr(sError);
         }
 
         return this;
@@ -93,11 +116,10 @@ export class FieldValidator {
     /**
     * Валидирует булевую переменную
     * @error isNotBool
-    * @param string sKey
-    * @param string sTpl
+    * @param string sError: string = 'isNotBool'
     * @return boolean
     */
-    public fBool(): FieldValidator {
+    public fBool(sError: string = 'isNotBool'): FieldValidator {
 
         let bSuccess = false;
         try {
@@ -113,11 +135,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isNotBool');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('isNotBool');
+            this.fErr(sError);
         }
 
         return this;
@@ -128,9 +150,10 @@ export class FieldValidator {
      * @error isNotInt
 	 * @param string sKey
 	 * @param string sTpl
+	 * @param string sError: string = 'isNotInt'
 	 * @return boolean
 	 */
-    public fInt(): FieldValidator {
+    public fInt(sError: string = 'isNotInt'): FieldValidator {
 
         let bSuccess = false;
         let i = Math.round(Number(this.data));
@@ -141,11 +164,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isNotInt');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('isNotInt');
+            this.fErr(sError);
         }
 
         return this;
@@ -155,9 +178,10 @@ export class FieldValidator {
 	 * Проверяет дату
 	 * @error isNotDate
 	 * @param string sKey
+	 * @param string sError: string = 'isNotInt'
 	 * @return boolean
 	 */
-    public fDate(): FieldValidator {
+    public fDate(sError: string = 'isNotDate'): FieldValidator {
 
         let dateformat = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;
         let bSuccess = false;
@@ -206,10 +230,10 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isNotDate');
+                this.fErr(sError);
             }
         } catch (e) {
-            this.fErr('isNotDate');
+            this.fErr(sError);
         }
 
         return this;
@@ -219,10 +243,10 @@ export class FieldValidator {
 	/**
 	 * Проверяет числовые значения - 2.22
 	 * @error isNotDecimal
-	 * @param string sKey
+	 * @param string sError: string = 'isNotDecimal'
 	 * @return boolean
 	 */
-    public fDecimal(): FieldValidator {
+    public fDecimal(sError: string = 'isNotDecimal'): FieldValidator {
 
         let bSuccess = false;
         try {
@@ -234,11 +258,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isNotDecimal');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('isNotDecimal');
+            this.fErr(sError);
         }
 
         return this;
@@ -253,8 +277,9 @@ export class FieldValidator {
 	 * Проверяет на больше
 	 * @error isNotMoreThan
 	 * @param iVal: number
+	 * @param sError: string = 'isNotMoreThan'
 	 */
-    public fMore(iVal: number): FieldValidator {
+    public fMore(iVal: number, sError: string = 'isNotMoreThan'): FieldValidator {
 
         let bSuccess = false;
         try {
@@ -267,11 +292,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isNotMoreThan');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('isNotMoreThan');
+            this.fErr(sError);
         }
 
         return this;
@@ -284,7 +309,7 @@ export class FieldValidator {
 	 * @error isNotMoreOrEqualThan
 	 * @param iVal: number
 	 */
-    public fMoreOrEqual(iVal: number): FieldValidator {
+    public fMoreOrEqual(iVal: number, sError: string = 'isNotMoreOrEqualThan'): FieldValidator {
 
         let bSuccess = false;
 
@@ -298,11 +323,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isNotMoreOrEqualThan');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('isNotMoreOrEqualThan' + iVal);
+            this.fErr(sError);
         }
 
         return this;
@@ -312,8 +337,9 @@ export class FieldValidator {
 	 * Проверяет на меньше
 	 *
 	 * @param iVal: number
+	 * @param sError: string = 'isNotLessThan'
 	 */
-    public fLess(iVal: number): FieldValidator {
+    public fLess(iVal: number, sError: string = 'isNotLessThan'): FieldValidator {
 
         let bSuccess = false;
 
@@ -327,11 +353,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isNotLessThan');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('isNotLessThan' + iVal);
+            this.fErr(sError);
         }
 
         return this;
@@ -339,10 +365,10 @@ export class FieldValidator {
 
 	/**
 	 * Проверяет на меньше или равно
-	 *
+	 * @error isLessOrEqualThan
 	 * @param iVal: number
 	 */
-    public fLessOrEqual(iVal: number): FieldValidator {
+    public fLessOrEqual(iVal: number, sError: string = 'isLessOrEqualThan'): FieldValidator {
 
         let bSuccess = false;
 
@@ -356,11 +382,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('isLessOrEqualThan');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('isLessOrEqualThan' + iVal);
+            this.fErr(sError);
         }
 
         return this;
@@ -370,8 +396,9 @@ export class FieldValidator {
 	 * Проверяет на макс количесво символов
 	 *
 	 * @param iLen: number
+	 * @param sError: string = 'moreThanMaxLen'
 	 */
-    public fMaxLen(iLen: number): FieldValidator {
+    public fMaxLen(iLen: number, sError: string = 'moreThanMaxLen'): FieldValidator {
 
         let bSuccess = false;
 
@@ -383,11 +410,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('MoreThanMaxLen');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('MoreThanMaxLen');
+            this.fErr(sError);
         }
 
         return this;
@@ -398,8 +425,9 @@ export class FieldValidator {
 	 * Проверяет на минимальное количесво символов
 	 *
 	 * @param iLen: number
+	 * @param sError: string = 'lessThanMinLen'
 	 */
-    public fMinLen(iLen: number): FieldValidator {
+    public fMinLen(iLen: number, sError: string = 'lessThanMinLen'): FieldValidator {
 
         let bSuccess = false;
 
@@ -411,11 +439,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr('LessThanMinLen');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('LessThanMinLen');
+            this.fErr(sError);
         }
 
         return this;
@@ -425,8 +453,9 @@ export class FieldValidator {
     /**
      * @error isNotEqual
      * @param Val 
+     * @param sError: string = 'isNotEqual'
      */
-    public fEqual(Val: any): FieldValidator {
+    public fEqual(Val: any, sError: string = 'isNotEqual'): FieldValidator {
 
         let bSuccess = false;
 
@@ -434,14 +463,129 @@ export class FieldValidator {
             bSuccess = (Val == this.data);
 
             if (!bSuccess) {
-                this.fErr('isNotEqual');
+                this.fErr(sError);
             }
 
         } catch (e) {
-            this.fErr('isNotEqual');
+            this.fErr(sError);
         }
 
         return this;
+    }
+
+    /**
+     * Данные не должны существовать
+     * @error isExist
+     * @param sError: string = 'isExist' 
+     */
+    public fNotExist(sError: string = 'isExist'): FieldValidator {
+
+        let bSuccess = false;
+
+        try {
+            if (this.data) {
+                bSuccess = false;
+            }
+
+            if (!bSuccess) {
+                this.fErr(sError);
+            }
+
+        } catch (e) {
+            this.fErr(sError);
+        }
+
+        return this;
+    }
+
+    /**
+     * Проверка что значение должно быть true
+     * @error isNotTrue
+     * @param sError: string = 'isNotTrue' 
+     */
+    public fTrue(sError: string = 'isNotTrue'): FieldValidator {
+
+        let bSuccess = false;
+
+        try {
+            if (this.data == true) {
+                bSuccess = true;
+            }
+
+            if (!bSuccess) {
+                this.fErr(sError);
+            }
+
+        } catch (e) {
+            this.fErr(sError);
+        }
+
+        return this;
+    }
+
+    /**
+     * Проверка что значение должно быть false
+     * @error isNotFalse
+     * @param sError: string = 'isNotFalse' 
+     */
+    public fFalse(sError: string = 'isNotFalse'): FieldValidator {
+
+        let bSuccess = false;
+
+        try {
+            if (this.data == false) {
+                bSuccess = true;
+            }
+
+            if (!bSuccess) {
+                this.fErr(sError);
+            }
+
+        } catch (e) {
+            this.fErr(sError);
+        }
+
+        return this;
+    }
+
+    /**
+     * Выполнить ф-ю если все OK
+     * Не будет корректно работать с асинхронными ф-ми
+     * @param fnc: Function
+     * @param arg: any[]
+     * @param sError: string = 'fncHasError' 
+     */
+    public fDoIfOk(fnc: Function, arg: any[], sError: string = 'fncHasError'): any {
+        let resp;
+        if (this.fIsOk()) {
+            try {
+                resp = fnc(...arg);
+            } catch (e) {
+                this.fErr(sError);
+            }
+        }
+
+        return resp;
+    }
+
+    /**
+     * Выполнить асинхронную ф-ю если все OK
+     * @param fnc: Function
+     * @param arg: any[]
+     * @param sError: string = 'fncAsyncHasError' 
+     */
+    public async fDoIfOkAsync(fnc: Function, arg: any[], sError: string = 'fncAsyncHasError'): Promise<any> {
+
+        let resp;
+        if (this.fIsOk()) {
+            try {
+                resp = await fnc(...arg);
+            } catch (e) {
+                this.fErr(sError);
+            }
+        }
+
+        return resp;
     }
 
 }
