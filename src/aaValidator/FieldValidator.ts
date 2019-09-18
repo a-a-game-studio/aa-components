@@ -10,12 +10,12 @@ export class FieldValidator {
     protected bOk: boolean = true;
     protected data: any;
     protected sErr: string;
-    
+
 
     constructor(errorSys: ErrorSys, data: any) {
         this.errorSys = errorSys;
         this.data = data;
-        this.sErr = 'Alert! ErrorNotSet for ' + data;
+        this.sErr = 'Alert! Error is not set for ' + data;
         return this;
     }
 
@@ -78,6 +78,7 @@ export class FieldValidator {
         return this;
     }
 
+    
     /**
     * Валидирует булевую переменную
     *
