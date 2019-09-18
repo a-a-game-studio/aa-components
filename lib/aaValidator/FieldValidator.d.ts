@@ -3,18 +3,24 @@ import { ErrorSys } from "../ErrorSys";
  * Валидатор поля
  */
 export declare class FieldValidator {
-    protected errorSys: ErrorSys;
+    errorSys: ErrorSys;
     protected bOk: boolean;
     protected data: any;
     protected sErr: string;
+    protected iCounter: number;
     constructor(errorSys: ErrorSys, data: any);
     protected fErr(sError: string): void;
     fGetErrorSys(): ErrorSys;
+    fIsOk(): boolean;
     /**
      * строка примечание к ошибке
      * @param e
      */
-    setErrorString(sErr: string): FieldValidator;
+    fSetErrorString(sErr: string): FieldValidator;
+    /**
+     * Существование значения
+     * @error isNotExist
+     */
     fExist(): FieldValidator;
     /**
      * Text validator
@@ -25,72 +31,68 @@ export declare class FieldValidator {
     fText(): FieldValidator;
     /**
     * Валидирует булевую переменную
-    *
+    * @error isNotBool
     * @param string sKey
     * @param string sTpl
     * @return boolean
     */
-    protected fBool(): FieldValidator;
+    fBool(): FieldValidator;
     /**
      * Проверяет числовые значения
-     *
+     * @error isNotInt
      * @param string sKey
      * @param string sTpl
      * @return boolean
      */
-    protected fInt(): FieldValidator;
+    fInt(): FieldValidator;
     /**
      * Проверяет дату
-     *
+     * @error isNotDate
      * @param string sKey
      * @return boolean
      */
-    protected fDate(): FieldValidator;
+    fDate(): FieldValidator;
     /**
      * Проверяет числовые значения - 2.22
-     *
+     * @error isNotDecimal
      * @param string sKey
      * @return boolean
      */
-    protected fDecimal(): FieldValidator;
+    fDecimal(): FieldValidator;
     /**
      * Проверяет на больше
-     *
-     * @param string sTpl
-     * @return boolean
+     * @error isNotMoreThan
+     * @param iVal: number
      */
-    protected fMore(iVal: number): FieldValidator;
+    fMore(iVal: number): FieldValidator;
     /**
      * Проверяет на больше
-     *
-     * @param string sKey
-     * @param string sTpl
-     * @return boolean
+     * @error isNotMoreOrEqualThan
+     * @param iVal: number
      */
-    protected fMoreOrEqual(iVal: number): FieldValidator;
+    fMoreOrEqual(iVal: number): FieldValidator;
     /**
      * Проверяет на меньше
      *
-     * @param string sTpl
-     * @return boolean
+     * @param iVal: number
      */
-    protected fLess(iVal: number): FieldValidator;
+    fLess(iVal: number): FieldValidator;
     /**
      * Проверяет на меньше или равно
      *
-     * @param string number
+     * @param iVal: number
      */
-    protected fLessOrEqual(iVal: number): FieldValidator;
+    fLessOrEqual(iVal: number): FieldValidator;
     /**
      * Проверяет на макс количесво символов
      *
      * @param iLen: number
      */
-    protected fMaxLen(iLen: number): FieldValidator;
+    fMaxLen(iLen: number): FieldValidator;
     /**
      * Проверяет на минимальное количесво символов
      *
      * @param iLen: number
      */
-    protected fMinLen(iLen: number): FieldValidator;
+    fMinLen(iLen: number): FieldValidator;
 }

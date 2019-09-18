@@ -5,11 +5,13 @@ import { ErrorSys } from "../ErrorSys";
  */
 export class FieldValidator {
 
-    protected errorSys: ErrorSys;
+    public errorSys: ErrorSys;
 
     protected bOk: boolean = true;
     protected data: any;
     protected sErr: string;
+
+    protected iCounter: number = 0;
 
 
     constructor(errorSys: ErrorSys, data: any) {
@@ -21,22 +23,31 @@ export class FieldValidator {
 
     protected fErr(sError: string) {
         this.bOk = false;
-        this.errorSys.error(this.sErr, sError);
+        this.errorSys.error(this.sErr + this.iCounter, sError);
+        this.iCounter++;
     }
 
     public fGetErrorSys(): ErrorSys {
         return this.errorSys;
     }
 
+    public fIsOk(): boolean {
+        return this.bOk;
+    }
+
     /**
      * строка примечание к ошибке
      * @param e 
      */
-    public setErrorString(sErr: string): FieldValidator {
+    public fSetErrorString(sErr: string): FieldValidator {
         this.sErr = sErr;
         return this;
     }
 
+    /**
+     * Существование значения
+     * @error isNotExist
+     */
     public fExist(): FieldValidator {
         if (!this.data) {
             this.fErr('isNotExist');
@@ -81,12 +92,12 @@ export class FieldValidator {
     
     /**
     * Валидирует булевую переменную
-    *
+    * @error isNotBool
     * @param string sKey
     * @param string sTpl
     * @return boolean
     */
-    protected fBool(): FieldValidator {
+   public fBool(): FieldValidator {
 
         let bSuccess = false;
         try {
@@ -114,12 +125,12 @@ export class FieldValidator {
 
 	/**
 	 * Проверяет числовые значения
-	 *
+     * @error isNotInt
 	 * @param string sKey
 	 * @param string sTpl
 	 * @return boolean
 	 */
-    protected fInt(): FieldValidator {
+    public fInt(): FieldValidator {
 
         let bSuccess = false;
         let i = Math.round(Number(this.data));
@@ -142,11 +153,11 @@ export class FieldValidator {
 
 	/**
 	 * Проверяет дату
-	 *
+	 * @error isNotDate
 	 * @param string sKey
 	 * @return boolean
 	 */
-    protected fDate(): FieldValidator {
+    public fDate(): FieldValidator {
 
         let dateformat = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;
         let bSuccess = false;
@@ -207,11 +218,11 @@ export class FieldValidator {
 
 	/**
 	 * Проверяет числовые значения - 2.22
-	 *
+	 * @error isNotDecimal
 	 * @param string sKey
 	 * @return boolean
 	 */
-    protected fDecimal(): FieldValidator {
+    public fDecimal(): FieldValidator {
 
         let bSuccess = false;
         try {
@@ -240,10 +251,10 @@ export class FieldValidator {
 
 	/**
 	 * Проверяет на больше
-	 *
+	 * @error isNotMoreThan
 	 * @param iVal: number
 	 */
-    protected fMore(iVal: number): FieldValidator {
+    public fMore(iVal: number): FieldValidator {
 
         let bSuccess = false;
         try {
@@ -260,7 +271,7 @@ export class FieldValidator {
             }
 
         } catch (e) {
-            this.fErr('isNotMoreThan' + iVal);
+            this.fErr('isNotMoreThan');
         }
 
         return this;
@@ -270,10 +281,10 @@ export class FieldValidator {
 
 	/**
 	 * Проверяет на больше
-	 *
+	 * @error isNotMoreOrEqualThan
 	 * @param iVal: number
 	 */
-    protected fMoreOrEqual(iVal: number): FieldValidator {
+    public fMoreOrEqual(iVal: number): FieldValidator {
 
         let bSuccess = false;
 
@@ -302,7 +313,7 @@ export class FieldValidator {
 	 *
 	 * @param iVal: number
 	 */
-    protected fLess(iVal: number): FieldValidator {
+    public fLess(iVal: number): FieldValidator {
 
         let bSuccess = false;
 
@@ -331,7 +342,7 @@ export class FieldValidator {
 	 *
 	 * @param iVal: number
 	 */
-    protected fLessOrEqual(iVal: number): FieldValidator {
+    public fLessOrEqual(iVal: number): FieldValidator {
 
         let bSuccess = false;
 
@@ -360,7 +371,7 @@ export class FieldValidator {
 	 *
 	 * @param iLen: number
 	 */
-    protected fMaxLen(iLen: number): FieldValidator {
+    public fMaxLen(iLen: number): FieldValidator {
 
         let bSuccess = false;
 
@@ -388,7 +399,7 @@ export class FieldValidator {
 	 *
 	 * @param iLen: number
 	 */
-    protected fMinLen(iLen: number): FieldValidator {
+    public fMinLen(iLen: number): FieldValidator {
 
         let bSuccess = false;
 
