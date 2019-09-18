@@ -95,5 +95,9 @@ export declare class FieldValidator {
      * @param iLen: number
      */
     fMinLen(iLen: number): FieldValidator;
+    /**
+     * @error isNotEqual
+     * @param Val
+     */
     fEqual(Val: any): FieldValidator;
 }

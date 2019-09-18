@@ -422,6 +422,10 @@ export class FieldValidator {
 
     }
 
+    /**
+     * @error isNotEqual
+     * @param Val 
+     */
     public fEqual(Val: any): FieldValidator {
 
         let bSuccess = false;
