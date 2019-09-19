@@ -7,9 +7,8 @@ export declare class FieldValidator {
     protected bOk: boolean;
     protected data: any;
     protected sErr: string;
-    protected iCounter: number;
     constructor(errorSys: ErrorSys, data: any);
-    protected fErr(sError: string): void;
+    protected fErr(sError: string, sMsg: string): void;
     /**
      * Список ошибок
      */
@@ -23,10 +22,6 @@ export declare class FieldValidator {
      * @param data
      */
     fSetData(data: any): FieldValidator;
-    /**
-     * Сбросить внутренний счетчик ошибок
-     */
-    fResetCounter(): FieldValidator;
     /**
      * строка примечание к ошибке
      * @param sErr: string
@@ -143,15 +138,14 @@ export declare class FieldValidator {
      * Выполнить ф-ю если все OK
      * Не будет корректно работать с асинхронными ф-ми
      * @param fnc: Function
-     * @param arg: any[]
+     * @param arg: any[] - аргументы для fnc
      * @param sError: string = 'fncHasError'
      */
-    fDoIfOk(fnc: Function, arg: any[], sError?: string): any;
+    fDoIfOk(fnc: Function, arg?: any[], sError?: string): any;
     /**
      * Выполнить асинхронную ф-ю если все OK
      * @param fnc: Function
-     * @param arg: any[]
      * @param sError: string = 'fncAsyncHasError'
      */
-    fDoIfOkAsync(fnc: Function, arg: any[], sError?: string): Promise<any>;
+    faDoIfOkAsync(fnc: Function, sError?: string): Promise<any>;
 }

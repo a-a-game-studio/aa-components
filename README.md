@@ -33,9 +33,9 @@ node typescript base class
 Получился список ошибок
 ```JSON
     { 
-        "multy0": "isNotInt",
-        "multy1": "isNotMoreOrEqualThan",
-        "multy2": "isNotLessThan" 
+        "multy.isNotInt": "isNotInt",
+        "multy.isNotMoreOrEqualThan": "isNotMoreOrEqualThan",
+        "multy.isNotLessThan": "isNotLessThan" 
     }
 ```
 
@@ -111,19 +111,19 @@ node typescript base class
     }
 
     new FieldValidator(errorSys, login)
-        .fSetErrorString('.login')
+        .fSetErrorString('login')
         .fExist()
         .fText()
         .fMinLen(5)
 
         .fSetData(pass)
-        .fSetErrorString('.pass')
+        .fSetErrorString('pass')
         .fExist()
         .fText()
         .fMinLen(7)
 
         .fSetData(passConfirm)
-        .fSetErrorString('.passConfirm')
+        .fSetErrorString('passConfirm')
         .fExist()
         .fText()
         .fMinLen(7)
@@ -141,37 +141,36 @@ node typescript base class
     let pass = 'test pass';
     let passConfirm = 'test pass';
 
-    const loginFnc = async (login: string, pass: string) => {
+    const faLoginFnc = async (login: string, pass: string) => {
         // Do login ...
     }
-    const afterloginFnc = async (someData: any) => {
+    const faAfterloginFnc = async (someData: any) => {
         // Do something ...
     }
 
     const myValidator = new FieldValidator(errorSys, login)
-        .fSetErrorString('.login')
+        .fSetErrorString('login')
         .fExist()
         .fText()
         .fMinLen(5)
 
         .fSetData(pass)
-        .fSetErrorString('.pass')
+        .fSetErrorString('pass')
         .fExist()
         .fText()
         .fMinLen(7)
 
         .fSetData(passConfirm)
-        .fSetErrorString('.passConfirm')
+        .fSetErrorString('passConfirm')
         .fExist()
         .fText()
         .fMinLen(7)
         .fEqual(pass);
 
-    myValidator.fDoIfOkAsync(loginFnc, [login, pass])
-        .then((data: any) => myValidator.fDoIfOkAsync(afterloginFnc, [data]))
-        .then((data: any) => myValidator.fDoIfOkAsync(afterloginFnc, [data]))
-        .then((data: any) => myValidator.fDoIfOkAsync(afterloginFnc, [data]))
-        .then((data: any) => myValidator.fDoIfOkAsync(afterloginFnc, [data]))
+    myValidator.faDoIfOkAsync(() => faLoginFnc(login, pass))
+        .then((data: any) => myValidator.faDoIfOkAsync(() => faAfterloginFnc(data)))
+        .then((data: any) => myValidator.faDoIfOkAsync(() => faAfterloginFnc(data)))
+        .then((data: any) => myValidator.faDoIfOkAsync(() => faAfterloginFnc(data)))
         
         ;
 

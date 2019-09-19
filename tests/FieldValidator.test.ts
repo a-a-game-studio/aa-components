@@ -27,7 +27,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidateInt').fInt().fIsOk());
-            assert.ok((errorSys.getErrors())['ValidateInt0'] == 'isNotInt');
+            assert.ok((errorSys.getErrors())['ValidateInt.isNotInt'] == 'isNotInt');
         }); //it ****
 
         /* ----------------------------- */
@@ -46,7 +46,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidatefExist').fExist().fIsOk());
-            assert.ok((errorSys.getErrors())['ValidatefExist0'] == 'isNotExist');
+            assert.ok((errorSys.getErrors())['ValidatefExist.isNotExist'] == 'isNotExist');
         }); //it ****
 
         /* ----------------------------- */
@@ -65,7 +65,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidatefBool').fBool().fIsOk());
-            assert.ok((errorSys.getErrors())['ValidatefBool0'] == 'isNotBool');
+            assert.ok((errorSys.getErrors())['ValidatefBool.isNotBool'] == 'isNotBool');
         }); //it ****
 
         /* ----------------------------- */
@@ -84,7 +84,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidatefDate').fDate().fIsOk());
-            assert.ok((errorSys.getErrors())['ValidatefDate' + '0'] == 'isNotDate');
+            assert.ok((errorSys.getErrors())['ValidatefDate' + '.isNotDate'] == 'isNotDate');
         }); //it ****
 
         /* ----------------------------- */
@@ -102,7 +102,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidatefDecimal').fDecimal().fIsOk());
-            assert.ok((errorSys.getErrors())['ValidatefDecimal' + '0'] == 'isNotDecimal');
+            assert.ok((errorSys.getErrors())['ValidatefDecimal' + '.isNotDecimal'] == 'isNotDecimal');
         }); //it ****
 
         /* ----------------------------- */
@@ -120,7 +120,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidatefMore').fMore(1001).fIsOk());
-            assert.ok((errorSys.getErrors())['ValidatefMore' + '0'] == 'isNotMoreThan');
+            assert.ok((errorSys.getErrors())['ValidatefMore' + '.isNotMoreThan'] == 'isNotMoreThan');
         }); //it ****
 
         iCounter++; mocha.it(iCounter + ': Test fMore 2 false', () => {
@@ -129,7 +129,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidatefMore').fMore(1001).fIsOk());
-            assert.ok((errorSys.getErrors())['ValidatefMore' + '0'] == 'isNotMoreThan');
+            assert.ok((errorSys.getErrors())['ValidatefMore' + '.isNotMoreThan'] == 'isNotMoreThan');
         }); //it ****
         iCounter++; mocha.it(iCounter + ': Test fMore 3 false', () => {
             let data = 1000;
@@ -137,7 +137,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidatefMore').fMore(1000).fIsOk());
-            assert.ok((errorSys.getErrors())['ValidatefMore' + '0'] == 'isNotMoreThan');
+            assert.ok((errorSys.getErrors())['ValidatefMore' + '.isNotMoreThan'] == 'isNotMoreThan');
         }); //it ****
 
         /* ----------------------------- */
@@ -163,7 +163,7 @@ function run() {
             const errorSys = new ErrorSys();
 
             assert.ok(!new FieldValidator(errorSys, data).fSetErrorString('ValidatefMoreOrEqual').fMoreOrEqual(5000).fIsOk());
-            assert.ok((errorSys.getErrors())['ValidatefMoreOrEqual' + '0'] == 'isNotMoreOrEqualThan');
+            assert.ok((errorSys.getErrors())['ValidatefMoreOrEqual' + '.isNotMoreOrEqualThan'] == 'isNotMoreOrEqualThan');
         }); //it ****
 
         /* ----------------------------- */
@@ -217,6 +217,7 @@ function run() {
 
         }); //it ****
 
+       
         iCounter++; mocha.it(iCounter + ': Test fDoIfOkAsync', async () => {
 
             let data = 10000;
@@ -239,9 +240,10 @@ function run() {
                 .fInt()
                 .fMoreOrEqual(5000);
 
-            let resp = await myValidator.fDoIfOkAsync(tstFnc, [2, 3]);
+            let resp = await myValidator.faDoIfOkAsync(async () => await tstFnc(2, 3));
 
             assert.ok(myValidator.fIsOk());
+            assert.ok(resp = 'funcOk');
 
             assert.ok(iArg1 == 2);
             assert.ok(iArg2 == 3);
@@ -257,44 +259,3 @@ function run() {
 run();
 
 
-
-
-
-const errorSys = new ErrorSys();
-let login = 'user';
-let pass = 'test pass';
-let passConfirm = 'test pass';
-
-const loginFnc = async (login: string, pass: string) => {
-    // Do login
-}
-const afterloginFnc = async (someData: any) => {
-    // Do login
-}
-
-const myValidator = new FieldValidator(errorSys, login)
-    .fSetErrorString('.login')
-    .fExist()
-    .fText()
-    .fMinLen(5)
-
-    .fSetData(pass)
-    .fSetErrorString('.pass')
-    .fExist()
-    .fText()
-    .fMinLen(7)
-
-    .fSetData(passConfirm)
-    .fSetErrorString('.passConfirm')
-    .fExist()
-    .fText()
-    .fMinLen(7)
-    .fEqual(pass);
-
-myValidator.fDoIfOkAsync(loginFnc, [login, pass])
-    .then((data: any) => myValidator.fDoIfOkAsync(afterloginFnc, [data]))
-    .then((data: any) => myValidator.fDoIfOkAsync(afterloginFnc, [data]))
-    .then((data: any) => myValidator.fDoIfOkAsync(afterloginFnc, [data]))
-    .then((data: any) => myValidator.fDoIfOkAsync(afterloginFnc, [data]))
-    
-    ;

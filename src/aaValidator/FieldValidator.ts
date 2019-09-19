@@ -11,8 +11,6 @@ export class FieldValidator {
     protected data: any;
     protected sErr: string;
 
-    protected iCounter: number = 0; // внутренний счетчик ошибок
-
 
     constructor(errorSys: ErrorSys, data: any) {
         this.errorSys = errorSys;
@@ -21,10 +19,9 @@ export class FieldValidator {
         return this;
     }
 
-    protected fErr(sError: string) {
+    protected fErr(sError: string, sMsg: string) {
         this.bOk = false;
-        this.errorSys.error(this.sErr + this.iCounter, sError);
-        this.iCounter++;
+        this.errorSys.error(this.sErr + '.' + sError, sMsg);
     }
 
     /**
@@ -50,13 +47,6 @@ export class FieldValidator {
         return this;
     }
 
-    /**
-     * Сбросить внутренний счетчик ошибок
-     */
-    public fResetCounter(): FieldValidator {
-        this.iCounter = 0;
-        return this;
-    }
 
     /**
      * строка примечание к ошибке
@@ -73,7 +63,7 @@ export class FieldValidator {
      */
     public fExist(sError: string = 'isNotExist'): FieldValidator {
         if (!this.data) {
-            this.fErr(sError);
+            this.fErr('isNotExist', sError);
         }
         return this;
     }
@@ -103,10 +93,10 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotText', sError);
             }
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotText', sError);
         }
 
         return this;
@@ -135,11 +125,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotBool', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotBool', sError);
         }
 
         return this;
@@ -164,11 +154,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotInt', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotInt', sError);
         }
 
         return this;
@@ -230,10 +220,10 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotDate', sError);
             }
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotDate', sError);
         }
 
         return this;
@@ -258,11 +248,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotDecimal', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotDecimal', sError);
         }
 
         return this;
@@ -292,11 +282,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotMoreThan', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotMoreThan', sError);
         }
 
         return this;
@@ -323,11 +313,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotMoreOrEqualThan', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotMoreOrEqualThan', sError);
         }
 
         return this;
@@ -353,11 +343,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotLessThan', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotLessThan', sError);
         }
 
         return this;
@@ -382,11 +372,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isLessOrEqualThan', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isLessOrEqualThan', sError);
         }
 
         return this;
@@ -410,11 +400,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('moreThanMaxLen', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('moreThanMaxLen', sError);
         }
 
         return this;
@@ -439,11 +429,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('lessThanMinLen', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('lessThanMinLen', sError);
         }
 
         return this;
@@ -463,11 +453,11 @@ export class FieldValidator {
             bSuccess = (Val == this.data);
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotEqual', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotEqual', sError);
         }
 
         return this;
@@ -488,11 +478,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isExist', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isExist', sError);
         }
 
         return this;
@@ -513,11 +503,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotTrue', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotTrue', sError);
         }
 
         return this;
@@ -538,11 +528,11 @@ export class FieldValidator {
             }
 
             if (!bSuccess) {
-                this.fErr(sError);
+                this.fErr('isNotFalse', sError);
             }
 
         } catch (e) {
-            this.fErr(sError);
+            this.fErr('isNotFalse', sError);
         }
 
         return this;
@@ -552,16 +542,16 @@ export class FieldValidator {
      * Выполнить ф-ю если все OK
      * Не будет корректно работать с асинхронными ф-ми
      * @param fnc: Function
-     * @param arg: any[]
+     * @param arg: any[] - аргументы для fnc
      * @param sError: string = 'fncHasError' 
      */
-    public fDoIfOk(fnc: Function, arg: any[], sError: string = 'fncHasError'): any {
+    public fDoIfOk(fnc: Function, arg: any[] = [], sError: string = 'fncHasError'): any {
         let resp;
         if (this.fIsOk()) {
             try {
                 resp = fnc(...arg);
             } catch (e) {
-                this.fErr(sError);
+                this.fErr('fncHasError', sError);
             }
         }
 
@@ -571,17 +561,16 @@ export class FieldValidator {
     /**
      * Выполнить асинхронную ф-ю если все OK
      * @param fnc: Function
-     * @param arg: any[]
      * @param sError: string = 'fncAsyncHasError' 
      */
-    public async fDoIfOkAsync(fnc: Function, arg: any[], sError: string = 'fncAsyncHasError'): Promise<any> {
+    public async faDoIfOkAsync(fnc: Function, sError: string = 'fncAsyncHasError'): Promise<any> {
 
         let resp;
         if (this.fIsOk()) {
             try {
-                resp = await fnc(...arg);
+                resp = await fnc();
             } catch (e) {
-                this.fErr(sError);
+                this.fErr('fncAsyncHasError', sError + ': ' + String(e));
             }
         }
 
