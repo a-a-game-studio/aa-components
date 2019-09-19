@@ -473,8 +473,8 @@ export class FieldValidator {
         let bSuccess = false;
 
         try {
-            if (this.data) {
-                bSuccess = false;
+            if (!this.data) {
+                bSuccess = true;
             }
 
             if (!bSuccess) {

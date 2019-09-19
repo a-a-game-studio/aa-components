@@ -251,6 +251,15 @@ function run() {
 
         }); //it ****
 
+        iCounter++; mocha.it(iCounter + ': Test fNotExist true', () => {
+            let data: number = undefined;
+
+            const errorSys = new ErrorSys();
+
+            let cV = new FieldValidator(errorSys, data).fSetErrorString('ValidatefNotExist').fNotExist().fIsOk();
+
+            assert.ok(new FieldValidator(errorSys, data).fSetErrorString('ValidatefNotExist').fNotExist().fIsOk());
+        }); //it ****
 
     });
 }
