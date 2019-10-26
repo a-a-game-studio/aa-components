@@ -96,6 +96,26 @@ function run() {
 
             assert.ok(errList['throw_db']);
         }); //it
+
+        it('throw', () => {
+
+            const errorSys = new ErrorSys('dev');
+            try{
+                try{
+                    let a:any = 5;
+                    a = a.lengthddd.asda + 5;
+                } catch(e){
+                    throw errorSys.throw(e, 'Сообщение проброса ошибки в БД');
+                }
+            } catch(e) {
+                errorSys.errorEx(e, 'throw-Success', 'Проврка проброса ошибки успешно выполнена')
+            }
+
+            let errList = errorSys.getErrors();
+            
+
+            assert.ok(errList['throw']);
+        }); //it
     });
 }
 

@@ -49,7 +49,8 @@ export class ErrorSys {
 			throw_valid_route:'Ошибка валидации данных роутинга',
 			throw_valid_db:'Ошибка валидации данных при сохранении в БД',
 			throw_db:'Ошибка запроса в БД',
-			throw_logic:'Ошибка логическая - в бизнес логике'
+			throw_logic:'Ошибка логическая - в бизнес логике',
+			throw:'Проброс ошибки'
 		});
 
 	}
@@ -213,6 +214,15 @@ export class ErrorSys {
 				this.devWarning(kError, 'Отсутствует декларация ошибки');
 			}
 		}
+	}
+
+	/**
+	 * Проброс ошибки
+	 * @param sError 
+	 */
+	public throw(e:Error, sError:string){
+		this.error('throw', sError);
+		return e;
 	}
 
 	/**

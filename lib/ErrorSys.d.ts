@@ -84,6 +84,11 @@ export declare class ErrorSys {
      */
     errorEx(e: any, kError: string, sError: string): void;
     /**
+     * Проброс ошибки
+     * @param sError
+     */
+    throw(e: Error, sError: string): Error;
+    /**
      * Ошибка доступа
      * @param sError
      */
