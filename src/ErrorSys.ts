@@ -17,6 +17,10 @@ export class ErrorSys {
 	private noticeList: { [s: string]: string }; // Уведомления для пользователя
 	private devLogList: string[]; // Массив для логирования тестовой информации
 
+	private traceList: { // Трейс ошибок errorEx
+		key:string, msg:string, e:Error
+	}[]; 
+
 
 	private errorCount: number = 0;
 
@@ -36,6 +40,16 @@ export class ErrorSys {
 		this.devNoticeList = {};
 		this.noticeList = {};
 		this.devLogList = [];
+		this.traceList = [];
+
+		// Декларирование стандартных ошибок
+		this.declareEx({
+			throw_access:'Ошибка доступа',
+			throw_valid:'Ошибка валидации данных ОБЩАЯ',
+			throw_valid_route:'Ошибка валидации данных роутинга',
+			throw_valid_db:'throw_valid_db',
+			throw_logic:'Ошибка логическая - в бизнес логике'
+		});
 
 	}
 
@@ -50,7 +64,9 @@ export class ErrorSys {
 		this.devNoticeList = {};
 		this.noticeList = {};
 		this.devLogList = [];
+		this.traceList = [];
 		this.errorCount = 0;
+		
 
 	}
 
@@ -175,6 +191,11 @@ export class ErrorSys {
 	public errorEx(e:any, kError:string, sError:string ): void{
 		this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
 		this.errorList[kError] = sError;
+		this.traceList.push({
+			key:kError,
+			msg:sError,
+			e:e
+		});
 
 		if( this.ifDevMode ){
 			this.devLogList.push('E:['+kError+'] - '+sError);
@@ -186,6 +207,56 @@ export class ErrorSys {
 				this.devWarning(kError, 'Отсутствует декларация ошибки');
 			}
 		}
+	}
+
+	/**
+	 * Ошибка доступа
+	 * @param sError 
+	 */
+	public throwAccess(sError:string){
+		let err = new Error(sError);
+		this.error('throw_access', sError);
+		return err;
+	}
+
+	/**
+	 * Ошибка валидации данных ОБЩАЯ
+	 * @param sError 
+	 */
+	public throwValid(sError:string){
+		let err = new Error(sError);
+		this.error('throw_valid', sError);
+		return err;
+	}
+
+	/**
+	 * Ошибка валидации данных роутинга
+	 * @param sError 
+	 */
+	public throwValidRoute(sError:string){
+		let err = new Error(sError);
+		this.error('throw_valid_route', sError);
+		return err;
+	}
+
+	/**
+	 * Ошибка валидации данных при сохранении в БД
+	 * @param sError 
+	 */
+	public throwValidDB(sError:string){
+		let err = new Error(sError);
+		this.error('throw_valid_db', sError);
+		return err;
+	}
+
+	/**
+	 * Ошибка логическая - в бизнес логике
+	 * @param sError 
+	 */
+	public throwLogin(sError:string){
+		let err = new Error(sError);
+		this.error('throw_logic', sError);
+		return err;
 	}
 
 	/**
@@ -250,6 +321,15 @@ export class ErrorSys {
 	 */
 	public getErrors(): { [s: string]: string } {
 		return this.errorList;
+	}
+
+	/**
+	 * Получить весь трейс ошибок
+	 *
+	 * @return - возвращаются ошибки {key, msg, e}[]
+	 */
+	public getTraceList(): { key:string, msg:string, e:Error }[] {
+		return this.traceList;
 	}
 
 	/**

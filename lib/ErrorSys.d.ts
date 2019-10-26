@@ -13,6 +13,7 @@ export declare class ErrorSys {
     private devNoticeList;
     private noticeList;
     private devLogList;
+    private traceList;
     private errorCount;
     constructor(env?: string);
     /**
@@ -83,6 +84,31 @@ export declare class ErrorSys {
      */
     errorEx(e: any, kError: string, sError: string): void;
     /**
+     * Ошибка доступа
+     * @param sError
+     */
+    throwAccess(sError: string): Error;
+    /**
+     * Ошибка валидации данных ОБЩАЯ
+     * @param sError
+     */
+    throwValid(sError: string): Error;
+    /**
+     * Ошибка валидации данных роутинга
+     * @param sError
+     */
+    throwValidRoute(sError: string): Error;
+    /**
+     * Ошибка валидации данных при сохранении в БД
+     * @param sError
+     */
+    throwValidDB(sError: string): Error;
+    /**
+     * Ошибка логическая - в бизнес логике
+     * @param sError
+     */
+    throwLogin(sError: string): Error;
+    /**
      * Добавляет уведомление в стек
      *
      * @param string kNotice - ключ ошибки
@@ -123,6 +149,16 @@ export declare class ErrorSys {
     getErrors(): {
         [s: string]: string;
     };
+    /**
+     * Получить весь трейс ошибок
+     *
+     * @return - возвращаются ошибки {key, msg, e}[]
+     */
+    getTraceList(): {
+        key: string;
+        msg: string;
+        e: Error;
+    }[];
     /**
      * Получить все декларации для DEV режима
      */
