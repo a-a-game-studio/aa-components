@@ -104,6 +104,11 @@ export declare class ErrorSys {
      */
     throwValidDB(sError: string): Error;
     /**
+     * Ошибка запроса в БД
+     * @param sError
+     */
+    throwDB(sError: string): Error;
+    /**
      * Ошибка логическая - в бизнес логике
      * @param sError
      */

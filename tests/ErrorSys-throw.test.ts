@@ -82,6 +82,20 @@ function run() {
 
             assert.ok(errList['throw_valid_db']);
         }); //it
+
+        it('throwDB', () => {
+
+            const errorSys = new ErrorSys('dev');
+            try{
+                throw errorSys.throwDB('Сообщение об ошибке запроса в БД');
+            } catch(e){
+                errorSys.errorEx(e, 'throwDB-Success', 'Проврка ошибки валидации при записи в БД успешно выполнена')
+            }
+
+            let errList = errorSys.getErrors();
+
+            assert.ok(errList['throw_db']);
+        }); //it
     });
 }
 

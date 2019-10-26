@@ -47,7 +47,8 @@ export class ErrorSys {
 			throw_access:'Ошибка доступа',
 			throw_valid:'Ошибка валидации данных ОБЩАЯ',
 			throw_valid_route:'Ошибка валидации данных роутинга',
-			throw_valid_db:'throw_valid_db',
+			throw_valid_db:'Ошибка валидации данных при сохранении в БД',
+			throw_db:'Ошибка запроса в БД',
 			throw_logic:'Ошибка логическая - в бизнес логике'
 		});
 
@@ -135,9 +136,14 @@ export class ErrorSys {
 			this.errorList[kError] = kError;
 		}
 
-		// Проверка на декларацию ошибок
-		if (!(kError in this.errorDeclareList)) {
-			this.devWarning(kError, 'Отсутствует декларация ошибки');
+		if( this.ifDevMode ){
+			this.devLogList.push('E:['+kError+'] - '+sError);
+			console.log('E:['+kError+'] - '+sError);
+
+			// Проверка на декларацию ошибок
+			if (!(kError in this.errorDeclareList)) {
+				this.devWarning(kError, 'Отсутствует декларация ошибки');
+			}
 		}
 
 		this.errorCount++;
@@ -200,7 +206,7 @@ export class ErrorSys {
 		if( this.ifDevMode ){
 			this.devLogList.push('E:['+kError+'] - '+sError);
 			console.log('E:['+kError+'] - '+sError);
-			console.log('Ошибка - ' + e.name , e.message, e.stack);
+			console.log('Ошибка - ', e);
 
 			// Проверка на декларацию ошибок
 			if( !(kError in this.errorDeclareList) ){
@@ -214,9 +220,8 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwAccess(sError:string){
-		let err = new Error(sError);
 		this.error('throw_access', sError);
-		return err;
+		return new Error(sError);
 	}
 
 	/**
@@ -224,9 +229,8 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwValid(sError:string){
-		let err = new Error(sError);
 		this.error('throw_valid', sError);
-		return err;
+		return new Error(sError);
 	}
 
 	/**
@@ -234,9 +238,8 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwValidRoute(sError:string){
-		let err = new Error(sError);
 		this.error('throw_valid_route', sError);
-		return err;
+		return new Error(sError);;
 	}
 
 	/**
@@ -244,9 +247,17 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwValidDB(sError:string){
-		let err = new Error(sError);
 		this.error('throw_valid_db', sError);
-		return err;
+		return new Error(sError);;
+	}
+
+	/**
+	 * Ошибка запроса в БД
+	 * @param sError 
+	 */
+	public throwDB(sError:string){
+		this.error('throw_db', sError);
+		return new Error(sError);;
 	}
 
 	/**
@@ -254,9 +265,8 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwLogin(sError:string){
-		let err = new Error(sError);
 		this.error('throw_logic', sError);
-		return err;
+		return new Error(sError);;
 	}
 
 	/**
