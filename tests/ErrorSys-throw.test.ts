@@ -27,13 +27,13 @@ function run() {
             assert.ok(errList['throw_access']);
         }); //it
 
-        it('throwLogin', () => {
+        it('throwLogic', () => {
 
             const errorSys = new ErrorSys('dev');
             try{
-                throw errorSys.throwLogin('Сообщение об ошибке логики');
+                throw errorSys.throwLogic('Сообщение об ошибке логики');
             } catch(e){
-                errorSys.errorEx(e, 'throwLogin-Success', 'Проврка ошибки логики успешно выполнена')
+                errorSys.errorEx(e, 'throwLogic-Success', 'Проврка ошибки логики успешно выполнена')
             }
 
             let errList = errorSys.getErrors();

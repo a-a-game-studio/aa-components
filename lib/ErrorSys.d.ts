@@ -117,7 +117,7 @@ export declare class ErrorSys {
      * Ошибка логическая - в бизнес логике
      * @param sError
      */
-    throwLogin(sError: string): Error;
+    throwLogic(sError: string): Error;
     /**
      * Добавляет уведомление в стек
      *

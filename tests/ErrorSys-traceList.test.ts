@@ -28,9 +28,9 @@ function run() {
             }
 
             try{
-                throw errorSys.throwLogin('Сообщение об ошибке логики');
+                throw errorSys.throwLogic('Сообщение об ошибке логики');
             } catch(e){
-                errorSys.errorEx(e, 'throwLogin-Success', 'Проврка ошибки логики успешно выполнена')
+                errorSys.errorEx(e, 'throwLogic-Success', 'Проврка ошибки логики успешно выполнена')
             }
 
             try{

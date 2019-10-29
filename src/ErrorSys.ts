@@ -274,7 +274,7 @@ export class ErrorSys {
 	 * Ошибка логическая - в бизнес логике
 	 * @param sError 
 	 */
-	public throwLogin(sError:string){
+	public throwLogic(sError:string){
 		this.error('throw_logic', sError);
 		return new Error(sError);;
 	}
