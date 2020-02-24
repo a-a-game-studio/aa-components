@@ -31,5 +31,8 @@
   "directories": {
     "lib": "lib"
   },
-  "homepage": "https://github.com/a-a-game-studio/aa-components#readme"
+  "homepage": "https://github.com/a-a-game-studio/aa-components#readme",
+  "devDependencies": {
+    "@types/lodash": "^4.14.149"
+  }
 }

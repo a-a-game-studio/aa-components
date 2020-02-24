@@ -1,5 +1,8 @@
 // Системные сервисы
 import { ErrorSys } from '../ErrorSys';
+import * as _ from 'lodash';
+
+
 
 /**
  * Системный сервис валидации данных для моделей
@@ -272,6 +275,26 @@ export class ModelValidatorSys {
 
 		return bSuccess;
 	}
+
+	/**
+	 * Проверяет массив ли это
+	 *
+	 * @param string sKey
+	 * @return boolean
+	 */
+    protected fValidArray(sKey: string): boolean {
+
+		let bSuccess = false;
+
+        if ( _.isArray(this.data[sKey]) ) {
+
+            this.aResult[sKey] = this.data[sKey];
+            bSuccess = true;
+
+        }
+
+        return bSuccess;
+    }
 
 	// ================================================================
 	// Логические проверки
@@ -598,6 +621,17 @@ export class ModelValidatorSys {
 					this.okResult = false;
 					this.abValidOK[k] = false;
 					this.errorSys.error('valid_' + k + '_decimal', v['error'] + ' Ошибка decimal = ' + this.data[k]);
+				}
+			}
+
+			// Обработка [array] значений
+			if( bExist && bDpend && v['type'] == 'array' ){
+				this.errorSys.decl('valid_'+k+'_array', v['error']+' Ошибка array = '+this.data[k]);
+
+				if( !this.fValidArray(k) ){
+					this.okResult = false;
+					this.abValidOK[k] = false;
+					this.errorSys.error('valid_'+k+'_array', v['error']+' Ошибка array = '+this.data[k]);
 				}
 			}
 
