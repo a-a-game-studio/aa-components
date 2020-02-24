@@ -1,7 +1,6 @@
 // Системные сервисы
 import { ErrorSys } from '../ErrorSys';
-import * as _ from 'lodash';
-
+import { isArray } from 'util';
 
 
 /**
@@ -286,7 +285,7 @@ export class ModelValidatorSys {
 
 		let bSuccess = false;
 
-        if ( _.isArray(this.data[sKey]) ) {
+        if ( isArray(this.data[sKey]) ) {
 
             this.aResult[sKey] = this.data[sKey];
             bSuccess = true;
