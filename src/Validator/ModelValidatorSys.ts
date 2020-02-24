@@ -1,6 +1,6 @@
 // Системные сервисы
 import { ErrorSys } from '../ErrorSys';
-import { isArray } from 'util';
+import { isArray } from 'lodash';
 
 
 /**
