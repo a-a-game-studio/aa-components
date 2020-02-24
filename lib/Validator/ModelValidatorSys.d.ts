@@ -75,6 +75,13 @@ export declare class ModelValidatorSys {
      */
     protected fValidJson(sKey: string): boolean;
     /**
+     * Проверяет массив ли это
+     *
+     * @param string sKey
+     * @return boolean
+     */
+    protected fValidArray(sKey: string): boolean;
+    /**
      * Проверяет на больше
      *
      * @param string sKey
