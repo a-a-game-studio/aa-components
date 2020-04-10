@@ -19,13 +19,12 @@ export class ModelValidatorTaskS {
 	 * @param string sTpl - регулярное выражение по которому проверять
 	 * @return boolean
 	 */
-    public fValidString(sKey: string, sTpl: RegExp): boolean {
+    public fValidString(sKey: string, sTpl: RegExp|(number|string)[]): boolean {
 
         let bSuccess = false;
         let s = String(this.vValidatorSys.data[sKey]).trim();
 
         if ( s || s === '' ) {
-
 
             if (sTpl instanceof RegExp) { // Проверка на регулярное выражение
 

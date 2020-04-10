@@ -4,7 +4,7 @@ export interface ModelRulesI {
 	key?:string; // ключ проверяемого поля
 	type?:string; // Проверяемый тип
 	def?:any; // Значение по умолчанию
-	if?:RegExp|Array<number|string>; // Дополнительная опция проверки
+	if?:RegExp|any[]; // Дополнительная опция проверки
 	require?:boolean; // Поле обязательно
 	depend?:string; // ранее указанное поле от которого зависит проверять или нет данное поле
 	error?:string; // Сообщение если проверка провалилась
