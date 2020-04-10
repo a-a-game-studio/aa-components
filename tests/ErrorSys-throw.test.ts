@@ -2,8 +2,7 @@ declare var global: any;
 import * as mocha from 'mocha';
 import { assert } from 'chai';
 
-import { FieldValidator } from "../src/aaValidator/FieldValidator";
-import { ErrorSys } from "../src/ErrorSys";
+import { ErrorSys } from "../src/ErrorSys/ErrorSys";
 
 let iCounter = 0;
 

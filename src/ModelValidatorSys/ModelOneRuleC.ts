@@ -1,3 +1,5 @@
+import { ModelRulesT } from "..";
+import { ModelRulesI } from "./ModelRulesE";
 
 
 /**
@@ -5,13 +7,15 @@
  */
 export class ModelOneRuleC {
 
-	private aRule: { [key: string]: any };
+	private aRule:ModelRulesI;
 
 	constructor(sColumn: string) {
 
 		this.aRule = {};
-		this.aRule['key'] = sColumn;
+		this.aRule.key = sColumn;
 	}
+
+	// ===================================================
 
 	/**
 	 * [str, int, enum, text] - тип приавила
@@ -19,26 +23,74 @@ export class ModelOneRuleC {
 	 * @param string sType
 	 * @return ModelOneRuleC
 	 */
-	public type(sType: string): ModelOneRuleC {
-		this.aRule['type'] = sType;
+	public type(sType:ModelRulesT): ModelOneRuleC {
+		this.aRule.type = sType;
 		return this;
 	}
 
+	// arrayNumbers = "arrayNumbers", // js number[]
 
+	/** Целое число */
 	public typeInt(): ModelOneRuleC {
-		this.aRule['type'] = 'int';
+		this.aRule.type = ModelRulesT.int;
 		return this;
 	}
-
+	
+	/** Текст */
 	public typeText(): ModelOneRuleC {
-		this.aRule['type'] = 'text';
+		this.aRule.type = ModelRulesT.text;
 		return this;
 	}
 
-	public typeDate(): ModelOneRuleC {
-		this.aRule['type'] = 'date';
+	/** Строка - if:RegExp / if:enum(Array) */
+	public typeStr(): ModelOneRuleC {
+		this.aRule.type = ModelRulesT.str;
 		return this;
 	}
+
+	/** Булево значение */
+	public typeBool(): ModelOneRuleC {
+		this.aRule.type = ModelRulesT.boolean;
+		return this;
+	}
+
+	/** Список значений(number|string) */
+	public typeEnum(): ModelOneRuleC {
+		this.aRule.type = ModelRulesT.enum;
+		return this;
+	}
+
+	/** JSON строка */
+	public typeJson(): ModelOneRuleC {
+		this.aRule.type = ModelRulesT.json;
+		return this;
+	}
+
+	/** float двойной точности 10.00 */
+	public typeDecimal(): ModelOneRuleC {
+		this.aRule.type = ModelRulesT.decimal;
+		return this;
+	}
+	
+	/** js object {} */
+	public typeObject(): ModelOneRuleC {
+		this.aRule.type = ModelRulesT.object;
+		return this;
+	}
+
+	/** js array [2,{},'dd'] */
+	public typeArray(): ModelOneRuleC {
+		this.aRule.type = ModelRulesT.array;
+		return this;
+	}
+
+	/** js array [2,3,1,5] */
+	public typeArrayNumbers(): ModelOneRuleC {
+		this.aRule.type = ModelRulesT.arrayNumbers;
+		return this;
+	}
+
+	// ===================================================
 
 	/**
 	 * [rgexp<string>, enum(array)] - условие валидации
@@ -47,7 +99,7 @@ export class ModelOneRuleC {
 	 * @return ModelOneRuleC
 	 */
 	public if(ifType: any): ModelOneRuleC {
-		this.aRule['if'] = ifType;
+		this.aRule.if = ifType;
 		return this;
 	}
 
@@ -58,7 +110,7 @@ export class ModelOneRuleC {
 	 * @return ModelOneRuleC
 	 */
 	public require(): ModelOneRuleC {
-		this.aRule['require'] = true;
+		this.aRule.require = true;
 		return this;
 	}
 
@@ -69,7 +121,7 @@ export class ModelOneRuleC {
 	 * @return ModelOneRuleC
 	 */
 	public depend(sDepend: string): ModelOneRuleC {
-		this.aRule['depend'] = sDepend;
+		this.aRule.depend = sDepend;
 		return this;
 	}
 
@@ -80,7 +132,7 @@ export class ModelOneRuleC {
 	 * @return ModelOneRuleC
 	 */
 	public error(sError: string): ModelOneRuleC {
-		this.aRule['error'] = sError;
+		this.aRule.error = sError;
 		return this;
 	}
 
@@ -91,7 +143,7 @@ export class ModelOneRuleC {
 	 * @return ModelOneRuleC
 	 */
 	public errorEx(sKey:string, sError:string): ModelOneRuleC{
-		this.aRule['error_key'] = {key:sKey, msg:sError};
+		this.aRule.error_key = {key:sKey, msg:sError};
 
 		this.error(sError); // Вывод стандартных ошибок
 		return this;
@@ -104,7 +156,7 @@ export class ModelOneRuleC {
 	 * @return ModelOneRuleC
 	 */
 	public def(val: any): ModelOneRuleC {
-		this.aRule['def'] = val;
+		this.aRule.def = val;
 		return this;
 	}
 
@@ -115,7 +167,7 @@ export class ModelOneRuleC {
 	 * @return ModelOneRuleC
 	 */
 	public maxLen(iVal: number): ModelOneRuleC {
-		this.aRule['max_len'] = iVal;
+		this.aRule.max_len = iVal;
 		return this;
 	}
 
@@ -126,18 +178,16 @@ export class ModelOneRuleC {
 	 * @return ModelOneRuleC
 	 */
 	public minLen(iVal: number): ModelOneRuleC {
-		this.aRule['min_len'] = iVal;
+		this.aRule.min_len = iVal;
 		return this;
 	}
-
-	
 
     /**
      * Больше
      * @param iVal - Числовое сравнение [больше]
      */
 	public more(iVal: number): ModelOneRuleC {
-		this.aRule['more'] = iVal;
+		this.aRule.more = iVal;
 		return this;
 	}
 
@@ -146,7 +196,7 @@ export class ModelOneRuleC {
      * @param iVal - Числовое сравнение [больше или равно]
      */
 	public moreOrEq(iVal: number): ModelOneRuleC {
-		this.aRule['more_or_equal'] = iVal;
+		this.aRule.more_or_equal = iVal;
 		return this;
 	}
 
@@ -155,7 +205,7 @@ export class ModelOneRuleC {
      * @param iVal - Числовое сравнение [меньше]
      */
 	public less(iVal: number): ModelOneRuleC {
-		this.aRule['less'] = iVal;
+		this.aRule.less = iVal;
 		return this;
 	}
 
@@ -164,7 +214,7 @@ export class ModelOneRuleC {
      * @param iVal - Числовое сравнение [меньше или равно]
      */
 	public lessOrEq(iVal: number): ModelOneRuleC {
-		this.aRule['less_or_equal'] = iVal;
+		this.aRule.less_or_equal = iVal;
 		return this;
 	}
 
@@ -175,29 +225,21 @@ export class ModelOneRuleC {
 	 */
 	public get(): { [key: string]: any } {
 
-		if (!this.aRule['type']) { // Тип
-			this.aRule['type'] = false;
+		if (!this.aRule.type) { // Тип
+			this.aRule.type = null;
 		}
-		if (!this.aRule['if']) { // Условие
-			this.aRule['if'] = false;
+		if (!this.aRule.if) { // Условие
+			this.aRule.if = null;
 		}
-		if (!this.aRule['require']) { //  Поле обязательно для заполнения
-			this.aRule['require'] = false;
+		if (!this.aRule.require) { //  Поле обязательно для заполнения
+			this.aRule.require = false;
 		}
-		// if( !this.aRule['max_len'] ){ // Максимальная длинна строки
-		// 	this.aRule['max_len'] = false;
-		// }
-		// if( !this.aRule['more'] ){ // Больше
-		// 	this.aRule['more'] = false;
-		// }
-		// if( !this.aRule['less'] ){ // Больше
-		// 	this.aRule['less'] = false;
-		// }
-		if (!this.aRule['depend']) { // Зависемость от другова поля
-			this.aRule['depend'] = false;
+
+		if (!this.aRule.depend) { // Зависемость от другова поля
+			this.aRule.depend = null;
 		}
-		if (!this.aRule['error']) { // Текст об ошибке
-			this.aRule['error'] = false;
+		if (!this.aRule.error) { // Текст об ошибке
+			this.aRule.error = null;
 		}
 
 		return this.aRule;
@@ -209,7 +251,7 @@ export class ModelOneRuleC {
 	 * @return string
 	 */
 	public getKey(): string {
-		return this.aRule['key'];
+		return this.aRule.key;
 	}
 
 	//ФОРМАТ ПРАВИЛА [0:type, 1:condition, 2:required, 3:depend, 4:msg_error]

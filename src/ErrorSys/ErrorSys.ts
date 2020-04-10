@@ -1,3 +1,4 @@
+import { ErrorT } from "./ErrorT";
 
 /**
  * Системный сервис обработки ошибок
@@ -10,7 +11,6 @@ export class ErrorSys {
 	private env: string; // тип окружения
 	private ifDevMode: boolean; // Флаг режима разработки
 	private errorList: { [s: string]: string }; // Ошибки
-	private errorDeclareList: { [s: string]: string }; // список декларированных ошибок
 	private devWarningList: { [s: string]: string }; // Пердупреждения пользователю
 	private warningList: { [s: string]: string }; // Пердупреждения пользователю
 	private devNoticeList: { [s: string]: string }; // Уведомления для разработки и тестирования
@@ -34,7 +34,6 @@ export class ErrorSys {
 			this.ifDevMode = false;
 		}
 		this.errorList = {};
-		this.errorDeclareList = {};
 		this.devWarningList = {};
 		this.warningList = {};
 		this.devNoticeList = {};
@@ -42,16 +41,7 @@ export class ErrorSys {
 		this.devLogList = [];
 		this.traceList = [];
 
-		// Декларирование стандартных ошибок
-		this.declareEx({
-			throw_access:'Ошибка доступа',
-			throw_valid:'Ошибка валидации данных ОБЩАЯ',
-			throw_valid_route:'Ошибка валидации данных роутинга',
-			throw_valid_db:'Ошибка валидации данных при сохранении в БД',
-			throw_db:'Ошибка запроса в БД',
-			throw_logic:'Ошибка логическая - в бизнес логике',
-			throw:'Проброс ошибки'
-		});
+		
 
 	}
 
@@ -68,8 +58,6 @@ export class ErrorSys {
 		this.devLogList = [];
 		this.traceList = [];
 		this.errorCount = 0;
-		
-
 	}
 
 	/**
@@ -88,36 +76,6 @@ export class ErrorSys {
 	 */
 	public isDev(): boolean {
 		return this.ifDevMode;
-	}
-
-	/**
-	 *	Декларировать одну возможную ошибку
-	 *
-	 * @param keyError
-	 */
-	public decl(keyError: string, infoError: string) {
-		this.errorDeclareList[keyError] = infoError;
-	}
-
-	/**
-	 *	Декларация возможных ошибок
-	 *
-	 * @param keyErrorList
-	 */
-	public declare(keyErrorList: string[]) {
-		for (let i = 0; i < keyErrorList.length; i++) {
-			this.errorDeclareList[keyErrorList[i]] = null;
-		}
-	}
-
-	/**
-	 *	Декларация возможных ошибок
-	 *
-	 * @param keyErrorList
-	 */
-	public declareEx(keyErrorList: { [key: string]: string }) {
-
-		Object.assign(this.errorDeclareList, keyErrorList);
 	}
 
 	/**
@@ -140,11 +98,6 @@ export class ErrorSys {
 		if( this.ifDevMode ){
 			this.devLogList.push('E:['+kError+'] - '+sError);
 			console.log('E:['+kError+'] - '+sError);
-
-			// Проверка на декларацию ошибок
-			if (!(kError in this.errorDeclareList)) {
-				this.devWarning(kError, 'Отсутствует декларация ошибки');
-			}
 		}
 
 		this.errorCount++;
@@ -154,37 +107,6 @@ export class ErrorSys {
 
 	public getErrorCount(): number {
 		return this.errorCount;
-	}
-
-	/**
-	 * Добавление ошибки в стек по ключу декларирования
-	 * @param kError 
-	 */
-	public setError(kError: string) {
-		this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
-		this.errorList[kError] = this.errorDeclareList[kError];
-
-		// Проверка на декларацию ошибок
-		if (!(kError in this.errorDeclareList)) {
-			this.devWarning(kError, 'Отсутствует декларация ошибки');
-		}
-	}
-
-	/**
-	 * Сокращенный вариант
-	 * Добавляет ошибку в стек (используя в качестве сообщения значение из декларации)
-	 *
-	 * @param string kError - ключ ошибки
-	 * @return void
-	 */
-	public err( kError:string ): void{
-		if( this.errorDeclareList[kError] ){
-			this.error(kError, this.errorDeclareList[kError]);
-		} else {
-			this.error(kError, 'Неизвестная ошибка');
-			this.devWarning(kError, 'Отсутствует декларация ошибки');
-		}
-
 	}
 
 	/**
@@ -208,11 +130,6 @@ export class ErrorSys {
 			this.devLogList.push('E:['+kError+'] - '+sError);
 			console.log('E:['+kError+'] - '+sError);
 			console.log('Ошибка - ', e);
-
-			// Проверка на декларацию ошибок
-			if( !(kError in this.errorDeclareList) ){
-				this.devWarning(kError, 'Отсутствует декларация ошибки');
-			}
 		}
 	}
 
@@ -221,7 +138,7 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throw(e:Error, sError:string){
-		this.error('throw', sError);
+		this.error(ErrorT.throw, sError);
 		return e;
 	}
 
@@ -230,7 +147,7 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwAccess(sError:string){
-		this.error('throw_access', sError);
+		this.error(ErrorT.throwAccess, sError);
 		return new Error(sError);
 	}
 
@@ -239,7 +156,7 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwValid(sError:string){
-		this.error('throw_valid', sError);
+		this.error(ErrorT.throwValid, sError);
 		return new Error(sError);
 	}
 
@@ -248,7 +165,7 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwValidRoute(sError:string){
-		this.error('throw_valid_route', sError);
+		this.error(ErrorT.throwValidRoute, sError);
 		return new Error(sError);;
 	}
 
@@ -257,7 +174,7 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwValidDB(sError:string){
-		this.error('throw_valid_db', sError);
+		this.error(ErrorT.throwValidDB, sError);
 		return new Error(sError);;
 	}
 
@@ -266,7 +183,7 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwDB(sError:string){
-		this.error('throw_db', sError);
+		this.error(ErrorT.throwDB, sError);
 		return new Error(sError);;
 	}
 
@@ -275,7 +192,7 @@ export class ErrorSys {
 	 * @param sError 
 	 */
 	public throwLogic(sError:string){
-		this.error('throw_logic', sError);
+		this.error(ErrorT.throwLogic, sError);
 		return new Error(sError);;
 	}
 
@@ -350,26 +267,6 @@ export class ErrorSys {
 	 */
 	public getTraceList(): { key:string, msg:string, e:Error }[] {
 		return this.traceList;
-	}
-
-	/**
-	 * Получить все декларации для DEV режима
-	 */
-	public getDeclareList(): { [s: string]: string } {
-		return this.errorDeclareList;
-	}
-
-	/**
-	 * Получить все декларации для DEV режима
-	 */
-	public getDevDeclare(): { [s: string]: string } {
-		for (let k in this.errorDeclareList) {
-			if (this.errorList[k] && !this.errorDeclareList[k]) {
-				this.errorDeclareList[k] = this.errorList[k];
-			}
-		}
-
-		return this.errorDeclareList;
 	}
 
 	/**

@@ -1,10 +1,12 @@
 
 import { ModelOneRuleC } from "./ModelOneRuleC"
+import { ModelTplRuleC } from "./ModelTplRuleC";
+
 
 /**
  * Конструктор правил валидации
  */
-export class Validator {
+export class ModelRulesC {
 
 	private aRules: { [key: string]: any };
 
@@ -14,6 +16,10 @@ export class Validator {
 
 	public rule(sColumn: string): ModelOneRuleC {
 		return new ModelOneRuleC(sColumn);
+	}
+
+	public tpl(sColumn: string): ModelTplRuleC {
+		return new ModelTplRuleC(sColumn);
 	}
 
 	public set(oneRule: ModelOneRuleC) {
@@ -27,4 +33,3 @@ export class Validator {
 	}
 
 }
-

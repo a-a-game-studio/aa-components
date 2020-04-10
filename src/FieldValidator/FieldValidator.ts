@@ -1,4 +1,4 @@
-import { ErrorSys } from "../ErrorSys";
+import { ErrorSys } from "../ErrorSys/ErrorSys";
 
 /**
  * Валидатор поля
