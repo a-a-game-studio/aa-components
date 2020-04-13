@@ -26,8 +26,8 @@ export class ModelRulesC {
 	 * Создать правило из шаблона
 	 * @param sColumn 
 	 */
-	public tpl(sColumn: string): ModelTplRuleC {
-		return new ModelTplRuleC(sColumn);
+	public tpl(sColumn: string, bRequire:boolean = false): ModelTplRuleC {
+		return new ModelTplRuleC(sColumn, bRequire);
 	}
 
 	/**

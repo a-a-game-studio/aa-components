@@ -18,7 +18,12 @@
   },
   "author": "a-a-game-studio",
   "license": "BSD-3-Clause",
-  "dependencies": {
+  "dependencies": {},
+  "directories": {
+    "lib": "lib"
+  },
+  "homepage": "https://github.com/a-a-game-studio/aa-components#readme",
+  "devDependencies": {
     "@types/chai": "^4.2.3",
     "@types/mocha": "^5.2.6",
     "@types/node": "^12.7.2",
@@ -27,12 +32,5 @@
     "ts-mocha": "^6.0.0",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
-  },
-  "directories": {
-    "lib": "lib"
-  },
-  "homepage": "https://github.com/a-a-game-studio/aa-components#readme",
-  "devDependencies": {
-    "@types/lodash": "^4.14.149"
   }
 }

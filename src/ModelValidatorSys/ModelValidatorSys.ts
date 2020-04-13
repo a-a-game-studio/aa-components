@@ -1,6 +1,5 @@
 // Системные сервисы
 import { ErrorSys } from '../ErrorSys/ErrorSys';
-import { isArray } from 'lodash';
 import { ModelValidatorTaskS } from './ModelValidatorTaskS';
 import { ModelRulesI } from './ModelRulesE';
 import { ModelRulesT } from '..';

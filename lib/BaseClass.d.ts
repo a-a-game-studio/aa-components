@@ -1,5 +1,5 @@
-import { ModelValidatorSys } from './Validator/ModelValidatorSys';
-import { ErrorSys } from './ErrorSys';
+import { ModelValidatorSys } from './ModelValidatorSys/ModelValidatorSys';
+import { ErrorSys } from './ErrorSys/ErrorSys';
 export declare class BaseClass {
     errorSys: ErrorSys;
     modelValidatorSys: ModelValidatorSys;
