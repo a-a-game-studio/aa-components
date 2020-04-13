@@ -5,8 +5,6 @@ import { ErrorT } from "./ErrorT";
  */
 export class ErrorSys {
 
-	public errorClass: string = 'Base'; // откуда вызывается ошибка
-
 	private ok: boolean; // Глобальный статус выполнения
 	private env: string; // тип окружения
 	private ifDevMode: boolean; // Флаг режима разработки
@@ -16,7 +14,7 @@ export class ErrorSys {
 	private devNoticeList: { [s: string]: string }; // Уведомления для разработки и тестирования
 	private noticeList: { [s: string]: string }; // Уведомления для пользователя
 	private devLogList: string[]; // Массив для логирования тестовой информации
-
+	private bMute:boolean; // Режим тишины
 	private traceList: { // Трейс ошибок errorEx
 		key:string, msg:string, e:Error
 	}[]; 
@@ -27,8 +25,9 @@ export class ErrorSys {
 	constructor(env:string = 'prod') {
 
 		this.ok = true;
+		this.bMute = false;
 		this.env = env;
-		if (this.env == 'local' || this.env == 'dev') {
+		if (this.env == 'local' || this.env == 'dev' || this.env == 'test') {
 			this.ifDevMode = true;
 		} else {
 			this.ifDevMode = false;
@@ -41,8 +40,20 @@ export class ErrorSys {
 		this.devLogList = [];
 		this.traceList = [];
 
-		
+	}
 
+	/**
+	 * Дополнительная конфигурация системы ошибок
+	 * @param option 
+	 */
+	public option(option:{
+		bMute?:boolean; // Режим тищины
+	}){
+		if(option.bMute){
+			this.bMute = true; // Включить режим тишины - НЕ генерировать ошибки
+		} else {
+			this.bMute = false; // Выключить режим тишины - генерировать ошибки
+		}
 	}
 
 	/**
@@ -86,21 +97,22 @@ export class ErrorSys {
 	 * @return void
 	 */
 	public error(kError: string, sError?: string): void {
+		if(!this.bMute){ // Режим тишины
+			if (sError) {
+				this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
+				this.errorList[kError] = sError;
+			} else {
+				this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
+				this.errorList[kError] = kError;
+			}
 
-		if (sError) {
-			this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
-			this.errorList[kError] = sError;
-		} else {
-			this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
-			this.errorList[kError] = kError;
+			if( this.ifDevMode ){
+				this.devLogList.push('E:['+kError+'] - '+sError);
+				console.log('E:['+kError+'] - '+sError);
+			}
+
+			this.errorCount++;
 		}
-
-		if( this.ifDevMode ){
-			this.devLogList.push('E:['+kError+'] - '+sError);
-			console.log('E:['+kError+'] - '+sError);
-		}
-
-		this.errorCount++;
 
 	}
 
@@ -118,18 +130,20 @@ export class ErrorSys {
 	 * @param sError // Сообщение об ошибке
 	 */
 	public errorEx(e:any, kError:string, sError:string ): void{
-		this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
-		this.errorList[kError] = sError;
-		this.traceList.push({
-			key:kError,
-			msg:sError,
-			e:e
-		});
+		if(!this.bMute){ // Режим тишины
+			this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
+			this.errorList[kError] = sError;
+			this.traceList.push({
+				key:kError,
+				msg:sError,
+				e:e
+			});
 
-		if( this.ifDevMode ){
-			this.devLogList.push('E:['+kError+'] - '+sError);
-			console.log('E:['+kError+'] - '+sError);
-			console.log('Ошибка - ', e);
+			if( this.ifDevMode ){
+				this.devLogList.push('E:['+kError+'] - '+sError);
+				console.log('E:['+kError+'] - '+sError);
+				console.log('Ошибка - ', e);
+			}
 		}
 	}
 

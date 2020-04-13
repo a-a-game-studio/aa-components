@@ -2,7 +2,6 @@
  * Системный сервис обработки ошибок
  */
 export declare class ErrorSys {
-    errorClass: string;
     private ok;
     private env;
     private ifDevMode;
@@ -12,9 +11,17 @@ export declare class ErrorSys {
     private devNoticeList;
     private noticeList;
     private devLogList;
+    private bMute;
     private traceList;
     private errorCount;
     constructor(env?: string);
+    /**
+     * Дополнительная конфигурация системы ошибок
+     * @param option
+     */
+    option(option: {
+        bMute?: boolean;
+    }): void;
     /**
      * очистка стека
      */
