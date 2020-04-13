@@ -13,7 +13,7 @@ function run() {
 
         it('traceList', () => {
 
-            const errorSys = new ErrorSys();
+            const errorSys = new ErrorSys(); // Режим прода, для режима разработки указать ErrorSys('dev')
             try{
                 throw errorSys.throwAccess('Сообщение об ошибке доступа');
             } catch(e){
@@ -44,11 +44,24 @@ function run() {
                 errorSys.errorEx(e, 'throwValid-Success', 'Проврка ошибки валидации успешно выполнена')
             }
 
+            errorSys.errorEx(new Error(), 'error', 'Генерация обычной ошибки с трейсом')
+
+            errorSys.error('simple_error', 'обычной ошибки');
+
+            errorSys.notice('notice', 'Уведомление пользователю');
+            errorSys.devNotice('devNotice', 'Уведомление пользователю в режиме разработки, на проде не генерирет');
+
+            errorSys.warning('warning', 'Предупреждение пользователю');
+            errorSys.devWarning('devWarnig', 'Предупреждение пользователю в режиме разработки, на проде не генерирет');
+
             let traceList = errorSys.getTraceList();
-            console.log(traceList);
+            console.log('===trace-list>', traceList);
 
             let errList = errorSys.getErrors();
-            console.log('===>',errList);
+            console.log('===error>',errList);
+
+            console.log('===notice>',errorSys.getNotice());
+            console.log('===warning>',errorSys.getWarning());
 
             assert.ok(true);
         }); //it
