@@ -1,6 +1,6 @@
 {
   "name": "@a-a-game-studio/aa-components",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "node typescript base class",
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
