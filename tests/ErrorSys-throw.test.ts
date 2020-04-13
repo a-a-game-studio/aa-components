@@ -86,7 +86,7 @@ function run() {
 
             const errorSys = new ErrorSys('dev');
             try{
-                throw errorSys.throwDB('Сообщение об ошибке запроса в БД');
+                throw errorSys.throwDB(new Error('SQL Error SELECT'), 'Сообщение об ошибке запроса в БД');
             } catch(e){
                 errorSys.errorEx(e, 'throwDB-Success', 'Проврка ошибки валидации при записи в БД успешно выполнена')
             }

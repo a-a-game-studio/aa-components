@@ -143,6 +143,15 @@ export class ErrorSys {
 	}
 
 	/**
+	 * Проброс ошибки - можно указать кастомный ключ ошибки
+	 * @param sError 
+	 */
+	public throwEx(e:Error, kError:string, sError:string){
+		this.error(kError, sError);
+		return e;
+	}
+
+	/**
 	 * Ошибка доступа
 	 * @param sError 
 	 */
@@ -182,9 +191,9 @@ export class ErrorSys {
 	 * Ошибка запроса в БД
 	 * @param sError 
 	 */
-	public throwDB(sError:string){
+	public throwDB(e:Error, sError:string){
 		this.error(ErrorT.throwDB, sError);
-		return new Error(sError);;
+		return e;
 	}
 
 	/**

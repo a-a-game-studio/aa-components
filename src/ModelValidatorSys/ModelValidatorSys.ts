@@ -46,9 +46,11 @@ export class ModelValidatorSys {
 		return this.aMsg;
 	}
 
-	//ФОРМАТ ПРАВИЛА [
-	//	key_field :[0:type, 1:condition, 2:required, 3:depend, 4:msg_error]
-	//]
+	/**
+	 * Валидация данных
+	 * @param aRules
+	 * @param data
+	 */
 	public fValid(aRules: {[key:string]:ModelRulesI}, data: { [key: string]: any }) { // Проверка данных
 
 		this.data = data;
