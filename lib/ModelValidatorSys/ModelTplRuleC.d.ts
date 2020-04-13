@@ -6,25 +6,25 @@ export declare class ModelTplRuleC {
     private vRule;
     constructor(sColumn: string, bRequire?: boolean);
     /** ID > 0 */
-    id(sMsg: string): ModelOneRuleC;
+    tplID(sMsg: string): ModelOneRuleC;
     /** int - целое число */
-    int(sMsg: string): ModelOneRuleC;
+    tplInt(sMsg: string): ModelOneRuleC;
     /** text - простой текст */
-    text(sMsg: string): ModelOneRuleC;
+    tplText(sMsg: string): ModelOneRuleC;
     /** str - if опция if:RegEx if:['ss','af'] */
-    str(sMsg: string): ModelOneRuleC;
+    tplStr(sMsg: string): ModelOneRuleC;
     /** array ['se',123,2,4,'12'] */
-    array(sMsg: string): ModelOneRuleC;
+    tplArray(sMsg: string): ModelOneRuleC;
     /** array number [1,2,54,2] */
-    arrayNumber(sMsg: string): ModelOneRuleC;
+    tplArrayNumber(sMsg: string): ModelOneRuleC;
     /** boolean 1|0 */
-    bool(sMsg: string): ModelOneRuleC;
+    tplBool(sMsg: string): ModelOneRuleC;
     /** enum ['ws',2,34] => 34 */
-    enum(sMsg: string): ModelOneRuleC;
+    tplEnum(sMsg: string): ModelOneRuleC;
     /** decimal 10.01 */
-    decimal(sMsg: string): ModelOneRuleC;
+    tplDecimal(sMsg: string): ModelOneRuleC;
     /** json "{}" "[]" */
-    json(sMsg: string): ModelOneRuleC;
+    tplJson(sMsg: string): ModelOneRuleC;
     /** object {} */
-    object(sMsg: string): ModelOneRuleC;
+    tplObject(sMsg: string): ModelOneRuleC;
 }
