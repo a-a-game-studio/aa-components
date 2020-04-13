@@ -7,34 +7,38 @@ function valid(data: any) {
 	// ID
 
 	rules.set(rules.tpl('id_require_true_1', true)
-		.id('ID обязателен для заполнения')
+		.tplID('ID обязателен для заполнения')
+	);
+
+	rules.set(rules.tpl('id_require_false_1', true)
+		.tplID('ID обязателен для заполнения')
 	);
 
 	rules.set(rules.tpl('id_true_1')
-		.id('ID не обязателен заполнения')
+		.tplID('ID не обязателен заполнения')
 	);
 
 	// ==========================-
 	// TEXT
 
 	rules.set(rules.tpl('text_true_1', true)
-		.str('Текст true_1')
+		.tplStr('Текст true_1')
 	);
 
 	// ===========================
 	// STR
 
 	rules.set(rules.tpl('str_true_1', true)
-		.str('Строка true_1')
+		.tplStr('Строка true_1')
 	);
 
 	rules.set(rules.tpl('str_regex_true_1', true)
-		.str('С регуларынм выражением true_1')
+		.tplStr('С регуларынм выражением true_1')
 		.if(/^аист[ои]к$/)
 	);
 
 	rules.set(rules.tpl('str_regex_false_1', true)
-		.str('С регуларынм выражением false_1')
+		.tplStr('С регуларынм выражением false_1')
 		.if(/^аист[ои]к$/)
 	);
 
@@ -42,16 +46,16 @@ function valid(data: any) {
 	// ENUM
 
 	rules.set(rules.tpl('enum_number_true_1', true)
-		.enum('Сообщение - enum_number_true_1')
+		.tplEnum('Сообщение - enum_number_true_1')
 		.if([1,2])
 	);
 
 	rules.set(rules.tpl('enum_string_true_1', true)
-		.enum('Сообщение - enum_string_true_1')
+		.tplEnum('Сообщение - enum_string_true_1')
 		.if(['s1','s2', '1'])
 	);
 
-	const validator = new System.ModelValidatorSys(new System.ErrorSys());
+	const validator = new System.ModelValidatorSys(new System.ErrorSys('dev'));
 	validator.fValid(rules.get(), data);
 
 	return validator.getResult();
@@ -60,6 +64,7 @@ function valid(data: any) {
 
 const result = valid({
 	id_require_true_1: 45,
+	id_require_false_1:-66,
 	id_true_1: 165,
 
 	text_true_1: 'это простой текст',
@@ -73,6 +78,7 @@ const result = valid({
 });
 console.log('======================================');
 console.log('===id_require_true_1>', result.id_require_true_1);
+console.log('===id_require_false_1>', result.id_require_false_1);
 console.log('===id_true_1>', result.id_true_1);
 console.log('======================================');
 console.log('===text_true_1>', result.text_true_1);

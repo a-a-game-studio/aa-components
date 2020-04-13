@@ -63,7 +63,7 @@ function valid(data: any) {
 		.errorEx('text_string_false_2', 'text_string_false_2')
 	);
 
-	const validator = new System.ModelValidatorSys(new System.ErrorSys());
+	const validator = new System.ModelValidatorSys(new System.ErrorSys('dev'));
 	validator.fValid(rules.get(), data);
 
 	return validator.getResult();

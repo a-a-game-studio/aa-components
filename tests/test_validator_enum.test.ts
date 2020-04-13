@@ -114,7 +114,7 @@ function valid(data: any) {
 		.errorEx('enum_string_false_3', 'enum_string_false_3')
 	);
 
-	const validator = new System.ModelValidatorSys(new System.ErrorSys());
+	const validator = new System.ModelValidatorSys(new System.ErrorSys('dev'));
 	validator.fValid(rules.get(), data);
 
 	return validator.getResult();

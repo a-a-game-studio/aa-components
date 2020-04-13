@@ -42,6 +42,13 @@ function valid(data: any) {
 		.errorEx('int_number_false_1', 'int_number_false_1')
 	);
 
+	rules.set(rules.rule('int_number_false_2')
+		.typeInt()
+		.more(0)
+		.require()
+		.errorEx('int_number_false_2', 'int_number_false_2')
+	);
+
 	// =================================================
 	// STRING
 
@@ -69,7 +76,7 @@ function valid(data: any) {
 		.errorEx('int_string_false_3', 'int_string_false_3')
 	);
 
-	const validator = new System.ModelValidatorSys(new System.ErrorSys());
+	const validator = new System.ModelValidatorSys(new System.ErrorSys('dev'));
 	validator.fValid(rules.get(), data);
 
 	return validator.getResult();
@@ -84,6 +91,7 @@ const result = valid({
 	int_number_true_2: '1',
 	int_number_true_3: '0',
 	int_number_false_1: 's1',
+	int_number_false_2: -65,
 
 	int_string_true_1:'12',
 	int_string_false_1: null,
@@ -98,6 +106,7 @@ console.log('===int_number_true_1>', result.int_number_true_1);
 console.log('===int_number_true_2>', result.int_number_true_2);
 console.log('===int_number_true_3>', result.int_number_true_3);
 console.log('===int_number_false_1>', result.int_number_false_1);
+console.log('===int_number_false_2>', result.int_number_false_2);
 console.log('======================================');
 console.log('===int_string_true_1>', result.int_string_true_1);
 console.log('===int_string_false_1>', result.int_string_false_1);

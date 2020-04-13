@@ -36,7 +36,7 @@ function valid(data: any) {
 			.errorEx('array_false_null', 'array_false_null')
 	);
 
-	const validator = new System.ModelValidatorSys(new System.ErrorSys());
+	const validator = new System.ModelValidatorSys(new System.ErrorSys('dev'));
 	validator.fValid(rules.get(), data);
 
 	return validator.getResult();
