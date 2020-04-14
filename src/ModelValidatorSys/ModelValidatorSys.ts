@@ -35,7 +35,7 @@ export class ModelValidatorSys {
 	 *
 	 * @return array|null
 	 */
-	public getResult(): { [key: string]: any } { // Получить проверенные отфильтрованные данные
+	public getResult(): any { // Получить проверенные отфильтрованные данные
 		return this.aResult;
 	}
 	public getStatus() { // Получиь статус проверки

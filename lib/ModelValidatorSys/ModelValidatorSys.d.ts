@@ -22,9 +22,7 @@ export declare class ModelValidatorSys {
      *
      * @return array|null
      */
-    getResult(): {
-        [key: string]: any;
-    };
+    getResult(): any;
     getStatus(): boolean;
     getMsg(): string[];
     /**
