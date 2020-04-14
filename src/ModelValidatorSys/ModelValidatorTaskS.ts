@@ -106,7 +106,7 @@ export class ModelValidatorTaskS {
 
             this.vValidatorSys.aResult[sKey] = i;
             bSuccess = true;
-        }
+		}
 
         return bSuccess;
     }
