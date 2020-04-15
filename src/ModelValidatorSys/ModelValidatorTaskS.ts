@@ -220,25 +220,33 @@ export class ModelValidatorTaskS {
         if (vJsonValue) {
 
             // Проверка на массив
-            if (Object(vJsonValue)) {
-                sJsonValue = JSON.stringify(vJsonValue);
+            if (Array.isArray(vJsonValue) || vJsonValue === Object(vJsonValue)) {
+				sJsonValue = JSON.stringify(vJsonValue);
             } else {
-                sJsonValue = vJsonValue;
-            }
+				if(!Number(vJsonValue)){
+					sJsonValue = vJsonValue;
+				}
+			}
+			
+			sJsonValue = String(sJsonValue);
 
-            // Проверка строки на корректный JSON
-            try {
-                let obj = null;
-                obj = JSON.parse(sJsonValue);
+			// Проверка строки на корректный JSON
+			
+			if(sJsonValue !== ''){
+				try {
+					let obj = null;
+					obj = JSON.parse(sJsonValue);
+					console.log('===value>',obj);
 
-                if (obj) {
-                    this.vValidatorSys.aResult[sKey] = sJsonValue;
+					if (obj) {
+						this.vValidatorSys.aResult[sKey] = sJsonValue;
 
-                    bSuccess = true;
-                }
-            } catch (e) {
-                this.vValidatorSys.errorSys.errorEx(e, sKey + '_json_parse', sKey + ' - неверный формат json поля');
-            }
+						bSuccess = true;
+					}
+				} catch (e) {
+					this.vValidatorSys.errorSys.errorEx(e, sKey + '_json_parse', sKey + ' - неверный формат json поля');
+				}
+			}
 
         }
 
