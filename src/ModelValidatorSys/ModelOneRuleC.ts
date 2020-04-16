@@ -3,7 +3,7 @@ import { ModelRulesI } from "./ModelRulesE";
 
 
 /**
- * Класс констроирующий правила для одного поля
+ * Класс конструирующий правила для одного поля
  */
 export class ModelOneRuleC {
 
@@ -18,7 +18,7 @@ export class ModelOneRuleC {
 	// ===================================================
 
 	/**
-	 * [str, int, enum, text] - тип приавила
+	 * [str, int, enum, text] - тип правила
 	 *
 	 * @param string sType
 	 * @return ModelOneRuleC

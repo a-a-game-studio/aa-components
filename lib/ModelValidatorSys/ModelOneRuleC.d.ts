@@ -1,12 +1,12 @@
 import { ModelRulesT } from "..";
 /**
- * Класс констроирующий правила для одного поля
+ * Класс конструирующий правила для одного поля
  */
 export declare class ModelOneRuleC {
     private aRule;
     constructor(sColumn: string);
     /**
-     * [str, int, enum, text] - тип приавила
+     * [str, int, enum, text] - тип правила
      *
      * @param string sType
      * @return ModelOneRuleC
