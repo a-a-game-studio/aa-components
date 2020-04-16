@@ -1,11 +1,11 @@
 /**
- * Класс констроирующий правила для одного поля
+ * Класс конструирующий правила для одного поля
  */
 export declare class ModelOneRuleC {
     private aRule;
     constructor(sColumn: string);
     /**
-     * [str, int, enum, text] - тип приавила
+     * [str, int, enum, text] - тип правила
      *
      * @param string sType
      * @return ModelOneRuleC
@@ -43,7 +43,7 @@ export declare class ModelOneRuleC {
      */
     error(sError: string): ModelOneRuleC;
     /**
-     * [клич ошибки, сообшение ошибки] - Ключ и сообщение ошибки в случае если проверка не прошла
+     * [ключ ошибки, сообшение ошибки] - Ключ и сообщение ошибки в случае если проверка не прошла
      *
      * @param string sError
      * @return ModelOneRuleC
