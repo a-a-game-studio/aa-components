@@ -93,5 +93,60 @@ export class ModelTplRuleC {
 		this.vRule.errorEx(this.vRule.getKey(), sMsg);
 		return this.vRule;
 	}
+
+	/** login */
+	public tplLogin(sMsg:string): ModelOneRuleC {
+		this.vRule.typeStr();
+		this.vRule.if(/^[a-z][a-z0-9._-]*$/);
+		this.vRule.minLen(3);
+		this.vRule.maxLen(150);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
+
+	/** UUID 36 символов */
+	public tplUUID(sMsg:string): ModelOneRuleC {
+		this.vRule.typeText();
+		this.vRule.minLen(36);
+		this.vRule.maxLen(36);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
+
+	/** MD5 32 символа */
+	public tplMD5(sMsg:string): ModelOneRuleC {
+		this.vRule.typeText();
+		this.vRule.minLen(32);
+		this.vRule.maxLen(32);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
+
+	/** email name12@yandex.ru */
+	public tplEmail(sMsg:string): ModelOneRuleC {
+		this.vRule.typeStr();
+		this.vRule.if(/^[a-z][a-z0-9._-]+@[a-z0-9-]+.[a-z]{2,4}$/);
+		this.vRule.minLen(5);
+		this.vRule.maxLen(100);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
+
+	/** Телефон 79998887766 */
+	public tplTel(sMsg:string): ModelOneRuleC {
+		this.vRule.typeStr();
+		this.vRule.if(/^79\d{9}$/);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
+
+	/** Пароль 123456asd */
+	public tplPswd(sMsg:string): ModelOneRuleC {
+		this.vRule.typeStr();
+		this.vRule.minLen(6);
+		this.vRule.maxLen(100);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
 }
 

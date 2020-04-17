@@ -27,4 +27,16 @@ export declare class ModelTplRuleC {
     tplJson(sMsg: string): ModelOneRuleC;
     /** object {} */
     tplObject(sMsg: string): ModelOneRuleC;
+    /** login */
+    tplLogin(sMsg: string): ModelOneRuleC;
+    /** UUID 36 символов */
+    tplUUID(sMsg: string): ModelOneRuleC;
+    /** MD5 32 символа */
+    tplMD5(sMsg: string): ModelOneRuleC;
+    /** email name12@yandex.ru */
+    tplEmail(sMsg: string): ModelOneRuleC;
+    /** Телефон 79998887766 */
+    tplTel(sMsg: string): ModelOneRuleC;
+    /** Пароль 123456asd */
+    tplPswd(sMsg: string): ModelOneRuleC;
 }
