@@ -125,7 +125,7 @@ export class ModelTplRuleC {
 	/** email name12@yandex.ru */
 	public tplEmail(sMsg:string): ModelOneRuleC {
 		this.vRule.typeStr();
-		this.vRule.if(/^[a-z][a-z0-9._-]+@[a-z0-9-]+.[a-z]{2,4}$/);
+		this.vRule.if(/^[a-z][a-z0-9._-]+@[a-z0-9-]+\.[a-z]{2,4}$/);
 		this.vRule.minLen(5);
 		this.vRule.maxLen(100);
 		this.vRule.errorEx(this.vRule.getKey(), sMsg);
