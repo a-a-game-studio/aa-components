@@ -14,15 +14,15 @@ export class ErrorSys {
 	private devNoticeList: { [s: string]: string }; // Уведомления для разработки и тестирования
 	private noticeList: { [s: string]: string }; // Уведомления для пользователя
 	private devLogList: string[]; // Массив для логирования тестовой информации
-	private bMute:boolean; // Режим тишины
+	private bMute: boolean; // Режим тишины
 	private traceList: { // Трейс ошибок errorEx
-		key:string, msg:string, e:Error
-	}[]; 
+		key: string, msg: string, e: Error
+	}[];
 
 
 	private errorCount: number = 0;
 
-	constructor(env:string = 'prod') {
+	constructor(env: string = 'prod') {
 
 		this.ok = true;
 		this.bMute = false;
@@ -46,10 +46,10 @@ export class ErrorSys {
 	 * Дополнительная конфигурация системы ошибок
 	 * @param option 
 	 */
-	public option(option:{
-		bMute?:boolean; // Режим тищины
-	}){
-		if(option.bMute){
+	public option(option: {
+		bMute?: boolean; // Режим тищины
+	}) {
+		if (option.bMute) {
 			this.bMute = true; // Включить режим тишины - НЕ генерировать ошибки
 		} else {
 			this.bMute = false; // Выключить режим тишины - генерировать ошибки
@@ -97,7 +97,7 @@ export class ErrorSys {
 	 * @return void
 	 */
 	public error(kError: string, sError?: string): void {
-		if(!this.bMute){ // Режим тишины
+		if (!this.bMute) { // Режим тишины
 			if (sError) {
 				this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
 				this.errorList[kError] = sError;
@@ -106,9 +106,9 @@ export class ErrorSys {
 				this.errorList[kError] = kError;
 			}
 
-			if( this.ifDevMode ){
-				this.devLogList.push('E:['+kError+'] - '+sError);
-				console.log('E:['+kError+'] - '+sError);
+			if (this.ifDevMode) {
+				this.devLogList.push('E:[' + kError + '] - ' + sError);
+				console.log('E:[' + kError + '] - ' + sError);
 			}
 
 			this.errorCount++;
@@ -129,19 +129,19 @@ export class ErrorSys {
 	 * @param kError // Ключ ошибки - для тестирования
 	 * @param sError // Сообщение об ошибке
 	 */
-	public errorEx(e:any, kError:string, sError:string ): void{
-		if(!this.bMute){ // Режим тишины
+	public errorEx(e: any, kError: string, sError: string): void {
+		if (!this.bMute) { // Режим тишины
 			this.ok = false; // При любой одной ошибке приложение отдает отрицательный ответ
 			this.errorList[kError] = sError;
 			this.traceList.push({
-				key:kError,
-				msg:sError,
-				e:e
+				key: kError,
+				msg: sError,
+				e: e
 			});
 
-			if( this.ifDevMode ){
-				this.devLogList.push('E:['+kError+'] - '+sError);
-				console.log('E:['+kError+'] - '+sError);
+			if (this.ifDevMode) {
+				this.devLogList.push('E:[' + kError + '] - ' + sError);
+				console.log('E:[' + kError + '] - ' + sError);
 				console.log('Ошибка - ', e);
 			}
 		}
@@ -151,7 +151,7 @@ export class ErrorSys {
 	 * Проброс ошибки
 	 * @param sError 
 	 */
-	public throw(e:Error, sError:string){
+	public throw(e: Error, sError: string) {
 		this.error(ErrorT.throw, sError);
 		return e;
 	}
@@ -160,7 +160,7 @@ export class ErrorSys {
 	 * Проброс ошибки - можно указать кастомный ключ ошибки
 	 * @param sError 
 	 */
-	public throwEx(e:Error, kError:string, sError:string){
+	public throwEx(e: Error, kError: string, sError: string) {
 		this.error(kError, sError);
 		return e;
 	}
@@ -169,7 +169,7 @@ export class ErrorSys {
 	 * Ошибка доступа
 	 * @param sError 
 	 */
-	public throwAccess(sError:string){
+	public throwAccess(sError: string) {
 		this.error(ErrorT.throwAccess, sError);
 		return new Error(sError);
 	}
@@ -178,7 +178,7 @@ export class ErrorSys {
 	 * Ошибка валидации данных ОБЩАЯ
 	 * @param sError 
 	 */
-	public throwValid(sError:string){
+	public throwValid(sError: string) {
 		this.error(ErrorT.throwValid, sError);
 		return new Error(sError);
 	}
@@ -187,7 +187,7 @@ export class ErrorSys {
 	 * Ошибка валидации данных роутинга
 	 * @param sError 
 	 */
-	public throwValidRoute(sError:string){
+	public throwValidRoute(sError: string) {
 		this.error(ErrorT.throwValidRoute, sError);
 		return new Error(sError);;
 	}
@@ -196,7 +196,7 @@ export class ErrorSys {
 	 * Ошибка валидации данных при сохранении в БД
 	 * @param sError 
 	 */
-	public throwValidDB(sError:string){
+	public throwValidDB(sError: string) {
 		this.error(ErrorT.throwValidDB, sError);
 		return new Error(sError);;
 	}
@@ -205,7 +205,7 @@ export class ErrorSys {
 	 * Ошибка запроса в БД
 	 * @param sError 
 	 */
-	public throwDB(e:Error, sError:string){
+	public throwDB(e: Error, sError: string) {
 		this.error(ErrorT.throwDB, sError);
 		return e;
 	}
@@ -214,7 +214,7 @@ export class ErrorSys {
 	 * Ошибка логическая - в бизнес логике
 	 * @param sError 
 	 */
-	public throwLogic(sError:string){
+	public throwLogic(sError: string) {
 		this.error(ErrorT.throwLogic, sError);
 		return new Error(sError);;
 	}
@@ -288,7 +288,7 @@ export class ErrorSys {
 	 *
 	 * @return - возвращаются ошибки {key, msg, e}[]
 	 */
-	public getTraceList(): { key:string, msg:string, e:Error }[] {
+	public getTraceList(): { key: string, msg: string, e: Error }[] {
 		return this.traceList;
 	}
 
@@ -336,5 +336,11 @@ export class ErrorSys {
 	public getDevLog(): string[] {
 		return this.devLogList;
 	}
+
+	/**
+	*	Декларация возможных ошибок
+	* @deprecated
+	*/
+	public declare(p: any) { }
 
 }

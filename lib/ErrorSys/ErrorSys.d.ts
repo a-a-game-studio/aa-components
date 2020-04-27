@@ -183,4 +183,9 @@ export declare class ErrorSys {
      * Получить все логи для разработки
      */
     getDevLog(): string[];
+    /**
+    *	Декларация возможных ошибок
+    * @deprecated
+    */
+    declare(p: any): void;
 }
