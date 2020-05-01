@@ -577,4 +577,34 @@ export class FieldValidator {
         return resp;
     }
 
+    
+    private fIsNull(): boolean {
+        let resp = false;
+        try {
+            switch (this.data) {
+                case undefined:
+                    resp = true;
+                    break;
+                case null:
+                    resp = true;
+                    break;
+            }
+        } catch (e) {
+            resp = true;
+        }
+
+        return resp;
+    }
+
+     /**
+     * Занчение присваивается если пусто
+     * @param data 
+     */
+    public fDefault(data: any): FieldValidator {
+        if (this.fIsNull()) {
+            this.data = data;
+        }
+        return this;
+    }
+
 }

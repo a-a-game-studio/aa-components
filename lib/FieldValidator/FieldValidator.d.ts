@@ -148,4 +148,10 @@ export declare class FieldValidator {
      * @param sError: string = 'fncAsyncHasError'
      */
     faDoIfOkAsync(fnc: Function, sError?: string): Promise<any>;
+    private fIsNull;
+    /**
+    * Занчение присваивается если пусто
+    * @param data
+    */
+    fDefault(data: any): FieldValidator;
 }
