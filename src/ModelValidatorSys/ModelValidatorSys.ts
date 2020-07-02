@@ -67,7 +67,7 @@ export class ModelValidatorSys {
 
 			//Подстановка значений по умолчанию, если значения нет
 			if(!this.data[k] && this.data[k] !== 0 && this.data[k] !== false){
-				if(v.def || v.def === 0 || v.def === false){
+				if(v.def || v.def === 0 || v.def === false || v.def === ''){
 					this.data[k] = v.def;
 				}
 			}

@@ -48,6 +48,12 @@ function valid(data: any) {
 		.errorEx('int_defval_true_6', 'int_defval_true_6')
 	);
 
+	rules.set(rules.rule('text_defval_true_1')
+		.typeText()
+		.def('')
+		.errorEx('text_defval_true_1', 'text_defval_true_1')
+	);
+
 
 	const validator = new System.ModelValidatorSys(new System.ErrorSys('dev'));
 	validator.fValid(rules.get(), data);
@@ -64,6 +70,7 @@ const result = valid({
 	int_defval_true_4:null, // DEF 0
 	int_defval_true_5:null, // DEF false
 	int_defval_true_6:19, // DEF 16
+	text_defval_true_1:null
 });
 
 console.log('======================================');
@@ -73,4 +80,5 @@ console.log('===int_defval_true_3>', result.int_defval_true_3);
 console.log('===int_defval_true_4>', result.int_defval_true_4);
 console.log('===int_defval_true_5>', result.int_defval_true_5);
 console.log('===int_defval_true_6>', result.int_defval_true_6);
+console.log('===text_defval_true_1>', result.text_defval_true_1);
 console.log('======================================');
