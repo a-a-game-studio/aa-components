@@ -71,7 +71,7 @@ export class ModelValidatorSys {
 					this.data[k] = v.def;
 				}
 			}
-			
+
 
 			if( 'error_key' in v ){ // Если указываем ключ ошибки декларируем ее
 				let errorKey:any = {};
@@ -131,7 +131,7 @@ export class ModelValidatorSys {
             if (bExist && bDpend && v.type === ModelRulesT.arrayNumbers) {
 				this.fTypeArrayNumbers(k,v);
 			}
-			
+
 			// Обработка [object] значений
 			if( bExist && bDpend && v.type == ModelRulesT.object ){
 				this.fTypeObject(k,v);
@@ -193,7 +193,7 @@ export class ModelValidatorSys {
 	/**
 	 * TODO проверить работоспособность
 	 * Проверяет корректно условие зависимости или нет
-	 * @param v 
+	 * @param v
 	 */
 	private fDepend(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -223,8 +223,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка поля на наличие
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fRequire(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -240,8 +240,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа str
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeStr(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -257,8 +257,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа boolean
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeBool(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -274,8 +274,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа boolean
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeInt(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -291,8 +291,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа enum
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeEnum(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -308,8 +308,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа text
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeText(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -322,11 +322,11 @@ export class ModelValidatorSys {
 
 		return bOk;
 	}
-	
+
 	/**
 	 * Проверка типа json поля
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeJson(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -342,8 +342,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа decimal поля
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeDecimal(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -359,8 +359,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа arrayNumbers поля
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeArrayNumbers(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -376,8 +376,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа object поля
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeObject(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -393,8 +393,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка типа array поля
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fTypeArray(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -410,8 +410,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка больше
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fMore(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -431,8 +431,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка больше или равно
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fMoreOrEqual(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -452,8 +452,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка меньше
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fLess(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -473,14 +473,14 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка меньше или равно
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fLessOrEqual(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
 
 		if (vRule.type == ModelRulesT.int || vRule.type == ModelRulesT.decimal) {
-		
+
 			if ( !this.vValidatorTask.fValidLessOrEqual(kRule, vRule.less_or_equal) ){
 				this.abValidOK[kRule] = false;
 				this.okResult = false;
@@ -496,8 +496,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка меньше или равно
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fMaxLen(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -519,8 +519,8 @@ export class ModelValidatorSys {
 
 	/**
 	 * Проверка меньше или равно
-	 * @param kRule 
-	 * @param vRule 
+	 * @param kRule
+	 * @param vRule
 	 */
 	private fMinLen(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
@@ -532,7 +532,7 @@ export class ModelValidatorSys {
 			} else {
 				this.okResult = false;
 				this.errorSys.error(
-					`valid_'${kRule}_min_len`,
+					`valid_${kRule}_min_len`,
 					`${vRule.error} Количество символов меньше минимального значения = ${this.data[kRule]}`);
 			}
 		} else {
@@ -540,6 +540,6 @@ export class ModelValidatorSys {
 		}
 
 		return bOk;
-	}		
-	
+	}
+
 }
