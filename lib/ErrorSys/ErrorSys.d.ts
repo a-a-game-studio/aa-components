@@ -97,6 +97,12 @@ export declare class ErrorSys {
      */
     throwLogic(sError: string): Error;
     /**
+     * Ошибка логическая расширенная - в бизнес логике
+     * @param sKey ключ ошибки
+     * @param sError Сообщение ошибки
+     */
+    throwLogicEx(sKey: string, sError: string): Error;
+    /**
      * Добавляет уведомление в стек
      *
      * @param string kNotice - ключ ошибки
