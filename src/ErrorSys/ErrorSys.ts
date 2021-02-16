@@ -220,6 +220,17 @@ export class ErrorSys {
 	}
 
 	/**
+	 * Ошибка логическая расширенная - в бизнес логике
+	 * @param sKey ключ ошибки
+	 * @param sError Сообщение ошибки
+	 */
+	public throwLogicEx(sKey:string, sError: string) {
+		this.error(ErrorT.throwLogic, sError);
+		this.error(sKey, sError);
+		return new Error(sError);;
+	}
+
+	/**
 	 * Добавляет уведомление в стек
 	 *
 	 * @param string kNotice - ключ ошибки
