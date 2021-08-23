@@ -104,13 +104,12 @@ export class ModelOneRuleC {
 	}
 
 	/**
-	 * [true, false] - обязательное поле?
-	 *
-	 * @param boolean bRequire
+	 * @param boolean bDef - если присланно неверно - установить по умолчанию
 	 * @return ModelOneRuleC
 	 */
-	public require(): ModelOneRuleC {
+	public require(bDef = false): ModelOneRuleC {
 		this.aRule.require = true;
+        this.aRule.require_def = bDef;
 		return this;
 	}
 

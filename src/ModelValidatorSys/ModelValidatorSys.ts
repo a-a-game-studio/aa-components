@@ -78,10 +78,10 @@ export class ModelValidatorSys {
 				errorKey[v.error_key.key] = v.error_key.msg;
 			}
 
-			//Проверка существования данных
+			// Проверка существования данных
 			let bExist = this.vValidatorTask.checkExist(this.data[k]);
 
-			//Проверка зависимостей
+			// Проверка зависимостей
 			let bDpend = true;
 			if( v.depend ){
 				this.fDepend(k,v);
@@ -175,6 +175,17 @@ export class ModelValidatorSys {
             if (bExist && 'min_len' in v) {
 				this.fMinLen(k,v);
             }
+
+            // ============================================
+            // Если поле обязательно, но указанно неправильно - подставить значение по умолчанию если есть
+            // Если requre(true)
+            // ============================================
+       
+            if( v.require && v.require_def && !this.abValidOK[k]){                
+				if( v.def || v.def === 0 || v.def === false || v.def === ''){
+                    this.aResult[k] = v.def;
+				}
+			}
 
             // ============================================
 
