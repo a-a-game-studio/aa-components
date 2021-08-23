@@ -63,7 +63,6 @@ function valid(data: any) {
 	return validator.getResult();
 }
 
-
 const result = valid({
 
 	int_defval_true_1:'sdfsdf', // DEF 16
@@ -74,6 +73,7 @@ const result = valid({
 	int_defval_true_6:19, // DEF 16
 	text_defval_true_1:123123
 });
+
 
 console.log('======================================');
 console.log('===int_defval_true_1>', result.int_defval_true_1, '<=', 16);

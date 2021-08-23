@@ -52,6 +52,11 @@ export class ModelValidatorSys {
 	 */
 	public fValid(aRules: {[key:string]:ModelRulesI}, data: { [key: string]: any }) { // Проверка данных
 
+        if(!data){ // Проверка указанны данные или нет
+            data = {};
+            this.errorSys.error('valid_input_data', 'Данные для проверки не указаны');
+        }
+
 		this.data = data;
 		this.okResult = true; // [true/false] - Успешно или нет прошла валидация
 		this.abValidOK = {};
