@@ -103,6 +103,15 @@ export class ModelOneRuleC {
 		return this;
 	}
 
+    /**
+	 * @param function name(v:any,k?:string) {
+	 * @return ModelOneRuleC
+	 */
+	public beforeAction(fAction:Function): ModelOneRuleC {
+		this.aRule.before_action = fAction;
+		return this;
+	}
+
 	/**
 	 * @param boolean bDef - если присланно неверно - установить по умолчанию
 	 * @return ModelOneRuleC

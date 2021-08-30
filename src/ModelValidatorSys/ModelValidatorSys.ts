@@ -86,6 +86,15 @@ export class ModelValidatorSys {
 			// Проверка существования данных
 			let bExist = this.vValidatorTask.checkExist(this.data[k]);
 
+            // Выполнение предварительного действия
+            if(bExist && v.before_action){
+                try {
+                    this.data[k] = v.before_action(this.data[k], k);
+                } catch (e) {
+                    this.errorSys.error('valid_before_action_'+k, 'Предварительное действие перед проверкой не выполненно');
+                }
+            }
+
 			// Проверка зависимостей
 			let bDpend = true;
 			if( v.depend ){

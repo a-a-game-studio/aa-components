@@ -8,7 +8,11 @@ function valid(data: any) {
 
 	rules.set(rules.rule('int_defval_true_1')
 		.typeInt()
-		.require(true)
+		.require()
+        .beforeAction((v:any, k:string) => {
+            console.log(`beforeAction[${k}]>>>>`,v);
+            return 201
+        })
 		.def(16)
 		.errorEx('int_defval_true_1', 'int_defval_true_1')
 	);
