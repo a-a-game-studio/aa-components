@@ -174,6 +174,16 @@ export class ErrorSys {
 		return new Error(sError);
 	}
 
+    /**
+	 * Ошибка доступа
+	 * @param sError 
+	 */
+	public throwAccessEx(sKey:string, sError: string) {
+		this.error(ErrorT.throwAccess, sError);
+        this.error(sKey, sError);
+		return new Error(sError);
+	}
+
 	/**
 	 * Ошибка валидации данных ОБЩАЯ
 	 * @param sError 
