@@ -175,7 +175,7 @@ export class ErrorSys {
 	}
 
     /**
-	 * Ошибка доступа
+	 * Ошибка доступа - расширенная
 	 * @param sError 
 	 */
 	public throwAccessEx(sKey:string, sError: string) {
