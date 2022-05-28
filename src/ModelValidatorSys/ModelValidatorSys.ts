@@ -190,6 +190,10 @@ export class ModelValidatorSys {
 				this.fMinLen(k,v);
             }
 
+			if( bExist && 'custom' in v ){
+				this.fCustom(k,v);
+            }
+
             // ============================================
             // Если поле обязательно, но указанно неправильно - подставить значение по умолчанию если есть
             // Если requre(true)
@@ -567,4 +571,15 @@ export class ModelValidatorSys {
 		return bOk;
 	}
 
+    /**
+     * Кастомная валидация
+     */
+	private fCustom(kRule:string,vRule:ModelRulesI):boolean{
+        this.okResult = vRule.custom(this.data[kRule], this.errorSys);
+        if(this.okResult) {
+            this.abValidOK[kRule] = true; 
+            this.aResult[kRule] = this.data[kRule]
+        }
+		return true;
+	}
 }

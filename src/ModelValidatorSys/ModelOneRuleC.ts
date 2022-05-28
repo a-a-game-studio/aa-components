@@ -1,5 +1,5 @@
 import { ModelRulesT } from "..";
-import { ModelRulesI } from "./ModelRulesE";
+import { ModelRulesI, TCustomFn } from "./ModelRulesE";
 
 
 /**
@@ -223,6 +223,14 @@ export class ModelOneRuleC {
      */
 	public lessOrEq(iVal: number): ModelOneRuleC {
 		this.aRule.less_or_equal = iVal;
+		return this;
+	}
+
+    /**
+     * Кастомная валидация
+     */
+	public custom(fnVal: TCustomFn ): ModelOneRuleC {
+		this.aRule.custom = fnVal;
 		return this;
 	}
 

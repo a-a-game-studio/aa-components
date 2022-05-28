@@ -1,3 +1,6 @@
+import { ErrorSys } from '../ErrorSys/ErrorSys';
+
+export type TCustomFn = (data: any, errorSys: ErrorSys) => boolean;
 
 /** Типы валидации */
 export interface ModelRulesI {
@@ -18,6 +21,7 @@ export interface ModelRulesI {
 	more_or_equal?:number; // Число больше или равно
 	less?:number; // Число меньше
 	less_or_equal?:number; // Число меньше или равно
+    custom?: TCustomFn; // кастомная валидация
 
     before_action?:Function; // Функция выполняющаяся до проверки правила
 }

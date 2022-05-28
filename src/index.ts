@@ -4,7 +4,7 @@ import * as SimpleI from "./SimpleI";
 import { ModelValidatorSys } from "./ModelValidatorSys/ModelValidatorSys";
 import { ModelOneRuleC } from "./ModelValidatorSys/ModelOneRuleC";
 import { ModelRulesC } from "./ModelValidatorSys/ModelRulesC";
-import { ModelRulesT } from "./ModelValidatorSys/ModelRulesE";
+import { ModelRulesT, TCustomFn } from "./ModelValidatorSys/ModelRulesE";
 
 import { BaseClass } from "./BaseClass";
 import { FieldValidator } from "./FieldValidator/FieldValidator";
@@ -20,4 +20,5 @@ export {
     ModelRulesC,
     ModelRulesT,
     BaseClass,
+    TCustomFn,
 }
