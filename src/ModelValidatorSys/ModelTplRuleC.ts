@@ -148,4 +148,28 @@ export class ModelTplRuleC {
 		this.vRule.errorEx(this.vRule.getKey(), sMsg);
 		return this.vRule;
 	}
+
+	/** Дата 2022-09-15 */
+	public tplDate(sMsg:string): ModelOneRuleC {
+		this.vRule.typeStr();
+		this.vRule.if(/^([0-9]{4})-([0-1][0-9])-([0-3][0-9])$/);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
+
+	/** Время 08:01:00 */
+	public tplTime(sMsg:string): ModelOneRuleC {
+		this.vRule.typeStr();
+		this.vRule.if(/^([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$/);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
+
+	/** Дата и время 2022-09-15 08:01:00 */
+	public tplDateTime(sMsg:string): ModelOneRuleC {
+		this.vRule.typeStr();
+		this.vRule.if(/^([0-9]{4})-([0-1][0-9])-([0-3][0-9]) ([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$/);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
 }
