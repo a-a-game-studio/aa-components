@@ -44,7 +44,7 @@ export class ErrorSys {
 
 	/**
 	 * Дополнительная конфигурация системы ошибок
-	 * @param option 
+	 * @param option
 	 */
 	public option(option: {
 		bMute?: boolean; // Режим тищины
@@ -149,7 +149,7 @@ export class ErrorSys {
 
 	/**
 	 * Проброс ошибки
-	 * @param sError 
+	 * @param sError
 	 */
 	public throw(e: Error, sError: string) {
 		this.error(ErrorT.throw, sError);
@@ -158,7 +158,7 @@ export class ErrorSys {
 
 	/**
 	 * Проброс ошибки - можно указать кастомный ключ ошибки
-	 * @param sError 
+	 * @param sError
 	 */
 	public throwEx(e: Error, kError: string, sError: string) {
 		this.error(kError, sError);
@@ -167,7 +167,7 @@ export class ErrorSys {
 
 	/**
 	 * Ошибка доступа
-	 * @param sError 
+	 * @param sError
 	 */
 	public throwAccess(sError: string) {
 		this.error(ErrorT.throwAccess, sError);
@@ -176,7 +176,7 @@ export class ErrorSys {
 
     /**
 	 * Ошибка доступа - расширенная
-	 * @param sError 
+	 * @param sError
 	 */
 	public throwAccessEx(sKey:string, sError: string) {
 		this.error(ErrorT.throwAccess, sError);
@@ -186,7 +186,7 @@ export class ErrorSys {
 
 	/**
 	 * Ошибка валидации данных ОБЩАЯ
-	 * @param sError 
+	 * @param sError
 	 */
 	public throwValid(sError: string) {
 		this.error(ErrorT.throwValid, sError);
@@ -195,7 +195,7 @@ export class ErrorSys {
 
 	/**
 	 * Ошибка валидации данных роутинга
-	 * @param sError 
+	 * @param sError
 	 */
 	public throwValidRoute(sError: string) {
 		this.error(ErrorT.throwValidRoute, sError);
@@ -204,7 +204,7 @@ export class ErrorSys {
 
 	/**
 	 * Ошибка валидации данных при сохранении в БД
-	 * @param sError 
+	 * @param sError
 	 */
 	public throwValidDB(sError: string) {
 		this.error(ErrorT.throwValidDB, sError);
@@ -213,7 +213,7 @@ export class ErrorSys {
 
 	/**
 	 * Ошибка запроса в БД
-	 * @param sError 
+	 * @param sError
 	 */
 	public throwDB(e: Error, sError: string) {
 		this.error(ErrorT.throwDB, sError);
@@ -222,7 +222,7 @@ export class ErrorSys {
 
 	/**
 	 * Ошибка логическая - в бизнес логике
-	 * @param sError 
+	 * @param sError
 	 */
 	public throwLogic(sError: string) {
 		this.error(ErrorT.throwLogic, sError);
@@ -275,6 +275,19 @@ export class ErrorSys {
 	 */
 	public warning(kWarning: string, sWarning: string): void {
 		this.warningList[kWarning] = sWarning;
+	}
+
+	/**
+	 * Добавляет предупреждение c ошибкой в стек
+	 *
+	 * @param string kWarning - ключ ошибки
+	 * @param string sWarning - сообщение
+	 * @return void
+	 */
+	public throwWarning(kWarning: string, sWarning: string) {
+		this.warningList[kWarning] = sWarning;
+		this.error(ErrorT.throw, sWarning);
+		return new Error(sWarning);
 	}
 
 	/**
