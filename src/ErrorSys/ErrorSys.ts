@@ -286,7 +286,6 @@ export class ErrorSys {
 	 */
 	public throwWarning(kWarning: string, sWarning: string) {
 		this.warningList[kWarning] = sWarning;
-		this.error(ErrorT.throw, sWarning);
 		return new Error(sWarning);
 	}
 
