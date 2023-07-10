@@ -291,8 +291,6 @@ export class ModelValidatorTaskS {
                     if ( !fAction(array[i]) ) {
                         checkArray = false;
                         break;
-                    } else {
-                        array[i] = Number(array[i]);
                     }
                 }
             }
