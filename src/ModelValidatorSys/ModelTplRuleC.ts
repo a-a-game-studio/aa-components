@@ -27,7 +27,7 @@ export class ModelTplRuleC {
 	/** array [1,5,11], ID > 0 */
 	public tplArrayID(sMsg:string): ModelOneRuleC {
 		this.vRule.typeArray();
-		this.vRule.if((elem: any) => Number(elem) > 0 ? true : false);
+		this.vRule.if((elem: any) => Number(elem) > 0 && Number.isInteger(elem) ? true : false);
 		this.vRule.errorEx(this.vRule.getKey(), sMsg);
 		return this.vRule;
 	}
