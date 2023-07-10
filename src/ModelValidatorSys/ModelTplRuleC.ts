@@ -24,6 +24,14 @@ export class ModelTplRuleC {
 		return this.vRule;
 	}
 
+	/** array [1,5,11], ID > 0 */
+	public tplArrayID(sMsg:string): ModelOneRuleC {
+		this.vRule.typeArray();
+		this.vRule.if((elem: any) => Number(elem) > 0 ? true : false);
+		this.vRule.errorEx(this.vRule.getKey(), sMsg);
+		return this.vRule;
+	}
+
 	/** int - целое число */
 	public tplInt(sMsg:string): ModelOneRuleC {
 		this.vRule.typeInt();

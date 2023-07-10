@@ -275,7 +275,7 @@ export class ModelValidatorSys {
 	private fTypeStr(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
 
-		if( !this.vValidatorTask.fValidString(kRule, vRule.if) ){
+		if( !this.vValidatorTask.fValidString(kRule, <RegExp>vRule.if) ){
 			this.okResult = false;
 			this.abValidOK[kRule] = false;
 			this.errorSys.error('valid_'+kRule+'_str', vRule.error+' Ошибка string = '+this.data[kRule]);
@@ -428,7 +428,7 @@ export class ModelValidatorSys {
 	private fTypeArray(kRule:string,vRule:ModelRulesI):boolean{
 		let bOk = true;
 
-		if( !this.vValidatorTask.fValidArray(kRule) ){
+		if( !this.vValidatorTask.fValidArray(kRule, <Function>vRule.if) ){
 			this.okResult = false;
 			this.abValidOK[kRule] = false;
 			this.errorSys.error('valid_'+kRule+'_array', vRule.error+' Ошибка array = '+this.data[kRule]);
