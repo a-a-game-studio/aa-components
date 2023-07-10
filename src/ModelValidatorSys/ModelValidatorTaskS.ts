@@ -279,15 +279,30 @@ export class ModelValidatorTaskS {
 	 * @param string sKey
 	 * @return boolean
 	 */
-    public fValidArray(sKey: string): boolean {
+    public fValidArray(sKey: string, fAction?:Function): boolean {
 
-		let bSuccess = false;
+        let bSuccess = false;
+        let checkArray = true;
 
-        if ( Array.isArray(this.vValidatorSys.data[sKey]) ) {
+        let array = this.vValidatorSys.data[sKey];
+        if (Array.isArray(array)) {
+            if (fAction) {
+                for (let i = 0; i < array.length; i++) {
+                    if ( !fAction(array[i]) ) {
+                        checkArray = false;
+                        break;
+                    } else {
+                        array[i] = Number(array[i]);
+                    }
+                }
+            }
+        } else {
+            checkArray = false;
+        }
 
-            this.vValidatorSys.aResult[sKey] = this.vValidatorSys.data[sKey];
+        if (checkArray) {
+            this.vValidatorSys.aResult[sKey] = array;
             bSuccess = true;
-
         }
 
         return bSuccess;
